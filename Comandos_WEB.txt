@@ -1,0 +1,23 @@
+py -m venv venv
+
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+venv\Scripts\activate
+
+pip install flask
+pip install ipython
+pip install flask-wtf
+pip install flask-sqlalchemy
+pip install flask-migrate
+pip install flask-login
+pip install email_validator
+
+flask db init
+flask db migrate -m "users table"
+flask db upgrade
+
+flask db downgrade base
+
+pip install werkzeug
+
+set FLASK_APP=bloguvv.py
+flask run

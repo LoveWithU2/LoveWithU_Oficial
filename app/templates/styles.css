@@ -1,0 +1,116 @@
+/* Geral */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+}
+
+/* Animações */
+.animate__animated {
+    animation-duration: 1.2s;
+}
+
+/* Header */
+h1 {
+    font-family: 'Dancing Script', cursive;
+    color: #d6336c;
+}
+
+/* Botões */
+.btn {
+    font-weight: bold;
+    padding: 12px 30px;
+    border-radius: 50px;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.btn-outline-primary {
+    border: 2px solid #0d6efd;
+    color: #0d6efd;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: #fff;
+}
+
+.btn-danger {
+    background-color: #d6336c;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #bb2d3b;
+    color: white;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.card-img-top:hover {
+    opacity: 0.8;
+}
+
+/* Títulos */
+h2 {
+    font-family: 'Roboto', sans-serif;
+    color: #495057;
+    font-weight: 700;
+}
+
+/* Ícones */
+.fas {
+    font-size: 18px;
+}
+
+/* Listas */
+.list-group-item {
+    font-size: 1.1rem;
+    border: none;
+    background-color: #f8f9fa;
+}
+
+.list-group-item i {
+    font-size: 1.3rem;
+}
+
+.text-danger {
+    color: #e74a5e !important;
+}
+
+.text-primary {
+    color: #007bff !important;
+}
+
+.text-success {
+    color: #28a745 !important;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    .row {
+        margin-top: 40px;
+    }
+}

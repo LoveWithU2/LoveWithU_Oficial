@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-lg border-0 rounded">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4 text-primary">✨ Criar Nova Memória</h2>
+
+                    <form method="POST" enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
+
+                        <div class="form-group mb-4">
+                            {{ form.titulo.label(class="form-label font-weight-bold") }}
+                            {{ form.titulo(class="form-control", placeholder="Ex: Aniversário de 1 ano") }}
+                        </div>
+
+                        <div class="form-group mb-4">
+                            {{ form.data.label(class="form-label font-weight-bold") }}
+                            {{ form.data(class="form-control") }}
+                        </div>
+
+                        <div class="form-group mb-4">
+                            {{ form.categoria.label(class="form-label font-weight-bold") }}
+                            {{ form.categoria(class="form-control") }}
+                        </div>
+
+                        <div class="form-group mb-4">
+                            {{ form.descricao.label(class="form-label font-weight-bold") }}
+                            {{ form.descricao(class="form-control", rows=5, placeholder="Conte com carinho essa lembrança especial...") }}
+                        </div>
+
+                        <div class="form-group mb-4">
+                            {{ form.imagem.label(class="form-label font-weight-bold") }}
+                            {{ form.imagem(class="form-control-file") }}
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-lg btn-success px-5">
+                                Salvar Memória 💌
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

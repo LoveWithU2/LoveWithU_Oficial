@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-12 text-center">
+            <h1 class="display-3 font-weight-bold text-primary mb-4">Bem-vindo(a) ao LoveWithU!</h1>
+            <p class="lead mb-4">
+                Aqui você pode guardar e compartilhar momentos especiais com quem ama 💖
+            </p>
+
+            <div class="mb-5">
+                <a class="btn btn-lg btn-danger mr-3 animate__animated animate__bounceIn" href="{{ url_for('criar_memoria') }}">
+                    Criar nova memória
+                    <i class="fas fa-heart ml-2"></i>
+                </a>
+                
+                <a class="btn btn-lg btn-outline-primary animate__animated animate__pulse animate__infinite" href="{{ url_for('explorar_memorias') }}">
+                    Explorar Memórias
+                    <i class="fas fa-search ml-2"></i>
+                </a>
+                
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-lg rounded">
+                        <img src="https://source.unsplash.com/800x600/?couple" class="card-img-top" alt="Imagem de casal">
+                        <div class="card-body">
+                            <h5 class="card-title">Momentos a dois</h5>
+                            <p class="card-text">Reviva os melhores momentos juntos, repletos de amor e carinho.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-lg rounded">
+                        <img src="https://source.unsplash.com/800x600/?love" class="card-img-top" alt="Imagem de amor">
+                        <div class="card-body">
+                            <h5 class="card-title">Memórias que encantam</h5>
+                            <p class="card-text">Guarde as fotos, mensagens e datas mais significativas do seu relacionamento.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5">
+                <h2 class="text-secondary font-weight-bold">Como funciona?</h2>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex align-items-center">
+                        <i class="fas fa-camera-retro mr-3 text-danger"></i> 
+                        Crie memórias com fotos e textos personalizados.
+                    </li>
+                    <li class="list-group-item d-flex align-items-center">
+                        <i class="fas fa-calendar-alt mr-3 text-primary"></i> 
+                        Adicione datas e eventos especiais ao longo da sua história.
+                    </li>
+                    <li class="list-group-item d-flex align-items-center">
+                        <i class="fas fa-share-alt mr-3 text-success"></i> 
+                        Compartilhe suas memórias com seu parceiro(a) ou amigos.
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

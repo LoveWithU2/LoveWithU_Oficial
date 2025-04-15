@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Explorar Memórias ❤️</h2>
+    <div class="row">
+        {% for memoria in memorias %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+                {% if memoria.imagem %}
+                <img src="{{ url_for('static', filename='uploads/' ~ memoria.imagem) }}" class="card-img-top" alt="Imagem da memória">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ memoria.titulo }}</h5>
+                    <p class="card-text"><strong>Data:</strong> {{ memoria.data.strftime('%d/%m/%Y') }}</p>
+                    <p class="card-text">{{ memoria.descricao }}</p>
+                    <span class="badge bg-info text-dark">{{ memoria.categoria }}</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
