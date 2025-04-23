@@ -1,5 +1,88 @@
 {% extends 'base.html' %}
 
+{% block styles %}
+<style>
+    body {
+        background: linear-gradient(to right, #ffe4ec, #fdf0f5);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .card {
+        background-color: #fff;
+        border-radius: 20px;
+        border: none;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    h2.text-primary {
+        color: #d81b60 !important;
+        font-weight: bold;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #c2185b;
+    }
+
+    .form-control {
+        border-radius: 12px;
+        border: 2px solid #f8bbd0;
+        transition: all 0.3s ease;
+        padding: 10px 15px;
+        font-size: 16px;
+        background-color: #fff0f5;
+    }
+
+    .form-control:focus {
+        border-color: #ec407a;
+        box-shadow: 0 0 8px #f48fb1;
+    }
+
+    .form-control-file {
+        background-color: #fff0f5;
+        border: 2px dashed #f8bbd0;
+        border-radius: 12px;
+        padding: 10px;
+        width: 100%;
+    }
+
+    .btn-success {
+        background-color: #e91e63;
+        border: none;
+        padding: 12px 35px;
+        border-radius: 30px;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow: 0 5px 20px rgba(233, 30, 99, 0.3);
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-success:hover {
+        background-color: #c2185b;
+    }
+
+    ::placeholder {
+        color: #c48b9f;
+    }
+
+    .card-body {
+        background: linear-gradient(to top right, #fff, #ffeef4);
+        border-radius: 20px;
+    }
+
+    @media (max-width: 768px) {
+        h2 {
+            font-size: 24px;
+        }
+
+        .btn-success {
+            font-size: 16px;
+            padding: 10px 25px;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container mt-5 mb-5">
     <div class="row justify-content-center">

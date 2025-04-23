@@ -1,8 +1,71 @@
 {% extends 'base.html' %}
 
+{% block styles %}
+<style>
+    body {
+        background: linear-gradient(to bottom right, #fff1f5, #ffe4ec);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    h2 {
+        color: #c2185b;
+        font-weight: bold;
+    }
+
+    .card {
+        border-radius: 20px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+        border-bottom: 2px solid #f8bbd0;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        color: #d81b60;
+        font-weight: 600;
+    }
+
+    .card-text {
+        color: #555;
+    }
+
+    .badge {
+        background-color: #f8bbd0 !important;
+        font-weight: 500;
+        border-radius: 10px;
+        padding: 5px 10px;
+    }
+
+    .no-memories {
+        text-align: center;
+        margin-top: 50px;
+        font-size: 18px;
+        color: #777;
+    }
+
+    @media (max-width: 768px) {
+        .card-img-top {
+            height: 160px;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container mt-5">
     <h2 class="text-center mb-4">Explorar Memórias ❤️</h2>
+
+    {% if memorias %}
     <div class="row">
         {% for memoria in memorias %}
         <div class="col-md-4 mb-4">
@@ -14,11 +77,14 @@
                     <h5 class="card-title">{{ memoria.titulo }}</h5>
                     <p class="card-text"><strong>Data:</strong> {{ memoria.data.strftime('%d/%m/%Y') }}</p>
                     <p class="card-text">{{ memoria.descricao }}</p>
-                    <span class="badge bg-info text-dark">{{ memoria.categoria }}</span>
+                    <span class="badge text-dark">{{ memoria.categoria }}</span>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
+    {% else %}
+    <p class="no-memories">Nenhuma memória foi registrada ainda. Que tal criar uma nova? 💖</p>
+    {% endif %}
 </div>
 {% endblock %}
