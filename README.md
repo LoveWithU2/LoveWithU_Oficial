@@ -1,0 +1,70 @@
+# Guia de Uso do Git
+
+Este README fornece as etapas principais para clonar um repositório, conectar sua conta globalmente, e utilizar os comandos essenciais do Git.
+
+## 1. Clonando o Repositório
+
+Para clonar um repositório do GitHub para sua máquina local, execute:
+
+# git clone https://github.com/usuario/nome-do-repositorio.git
+
+Substitua `usuario` pelo seu nome de usuário no GitHub e `nome-do-repositorio` pelo nome do repositório que deseja clonar.
+
+## 2. Conectando Sua Conta Globalmente
+
+Configure seu nome de usuário e e-mail para associar suas mudanças aos commits:
+
+# git config --global user.name "Seu Nome"
+# git config --global user.email "seuemail@dominio.com"
+
+## 3. Criando um Novo Branch
+
+Para criar e mudar para um novo branch, use:
+
+# git checkout -b nome-do-branch
+
+Substitua `nome-do-branch` pelo nome do branch que você deseja criar.
+
+## 4. Removendo um Branch
+
+Para remover um branch localmente, use:
+
+# git branch -d nome-do-branch
+
+Se o branch ainda não foi mesclado, e você tem certeza de que quer removê-lo, use:
+
+# git branch -D nome-do-branch
+
+## 5. Obtendo as Últimas Mudanças do Repositório Remoto
+
+Para obter as últimas alterações do repositório remoto sem modificar sua área de trabalho, use:
+
+# git fetch
+
+Para mesclar essas alterações com seu branch atual, use:
+
+# git pull
+
+## 6. Enviando Suas Mudanças para o Repositório Remoto
+
+Após fazer alterações, adicionar e cometer arquivos, envie suas alterações para o repositório remoto com:
+
+# git push origin nome-do-branch
+
+Substitua `nome-do-branch` pelo nome do branch onde você está trabalhando.
+
+## 7. Adicionando Arquivos
+
+Para adicionar arquivos ao seu commit, use:
+
+# git add nome-do-arquivo
+
+Para adicionar todos os arquivos modificados:
+
+# git add .
+
+## 8. Cometendo Alterações
+
+Após adicionar os arquivos, você pode criar um commit para salvar suas mudanças localmente:
+
+# git commit -m "Mensagem do commit"
