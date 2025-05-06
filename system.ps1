@@ -7,5 +7,5 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 py -m pip install --upgrade pip
 
 
-#pip install -e .
+pip install -e .
 pip install invoke

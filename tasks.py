@@ -1,7 +1,7 @@
 from invoke import task
 import os
 import shutil
-from datetime import datetime
+from datetime import datetime, timedelta
 import zipfile
 
 
@@ -54,3 +54,36 @@ def backup(c, source='.', destination='backup', dias_max=7):
                 zipf.write(file_path, arcname=os.path.relpath(file_path, temp_backup_dir))
 
     print(f'\nBackup criado em: {zip_filename}')
+
+
+@task
+def descompactar(c, last=True, source='.', destination='backup'):
+
+    # Garante que o diretório de destino exista
+    if not os.path.exists(destination):
+        os.makedirs(destination)
+
+    # Lista arquivos .zip no diretório source
+    arquivos_zip = [
+        f for f in os.listdir(source)
+        if f.endswith('.zip') and os.path.isfile(os.path.join(source, f))
+    ]
+
+    if not arquivos_zip:
+        print("Nenhum arquivo .zip encontrado.")
+        return
+
+    # Seleciona o mais recente, se last=True
+    if last:
+        arquivos_zip.sort(
+            key=lambda f: os.path.getmtime(os.path.join(source, f)),
+            reverse=True
+        )
+    
+    zip_path = os.path.join(source, arquivos_zip[0])
+    print(f"Descompactando arquivo: {zip_path}")
+
+    with zipfile.ZipFile(zip_path, 'r') as zipf:
+        zipf.extractall(destination)
+
+    print(f"Arquivos extraídos com sucesso para o diretório: {destination}")
