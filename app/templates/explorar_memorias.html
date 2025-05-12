@@ -71,7 +71,11 @@
         <div class="col-md-4 mb-4">
             <div class="card shadow-sm h-100">
                 {% if memoria.imagem %}
-                <img src="{{ url_for('static', filename='uploads/' ~ memoria.imagem) }}" class="card-img-top" alt="Imagem da memória">
+                <img src="{{ url_for('static', filename='uploads/' + memoria.imagem) }}" class="card-img-top" alt="Imagem da memória">
+                {% else %}
+                    <img src="{{ url_for('static', filename='images/sem_imagem.png') }}"
+                         class="card-img-top"
+                         alt="Sem imagem disponível">
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ memoria.titulo }}</h5>

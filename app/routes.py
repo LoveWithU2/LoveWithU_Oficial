@@ -3,6 +3,9 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, CriarMemoriaForm
 from app.models import User, Memoria
+from werkzeug.utils import secure_filename
+import os
+
 
 @app.route('/')
 @login_required
@@ -50,12 +53,28 @@ def register():
 @login_required
 def criar_memoria():
     form = CriarMemoriaForm()
-    # lógica para salvar no banco de dados aqui
+    if form.validate_on_submit():
+        filename = None
+        if form.imagem.data:
+            filename = secure_filename(form.imagem.data.filename)
+            caminho = os.path.join('static/uploads', filename)
+            form.imagem.data.save(caminho)
+
+        nova_memoria = Memoria(
+            titulo=form.titulo.data,
+            data=form.data.data,
+            categoria=form.categoria.data,
+            descricao=form.descricao.data,
+            imagem=filename,
+            user_id=current_user.id
+        )
+        db.session.add(nova_memoria)
+        db.session.commit()
+        return redirect(url_for('explorar_memorias'))
     return render_template('criar_memoria.html', form=form)
 
 @app.route('/explorar_memorias')
 @login_required
 def explorar_memorias():
-    # Aqui você busca todas as memórias do banco
-    memorias = Memoria.query.order_by(Memoria.data.desc()).all()
+    memorias = Memoria.query.filter_by(user_id=current_user.id).order_by(Memoria.data.desc()).all()
     return render_template('explorar_memorias.html', memorias=memorias)
