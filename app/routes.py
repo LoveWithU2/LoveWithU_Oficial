@@ -3,8 +3,9 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, CriarMemoriaForm
 from app.models import User, Memoria
-from werkzeug.utils import secure_filename
 import os
+from werkzeug.utils import secure_filename
+from flask import send_from_directory
 
 
 @app.route('/')
@@ -56,8 +57,12 @@ def criar_memoria():
     if form.validate_on_submit():
         filename = None
         if form.imagem.data:
+            # Garante que o diretório existe
+            upload_dir = os.path.join(app.root_path, 'static', 'uploads')
+            os.makedirs(upload_dir, exist_ok=True)
+            
             filename = secure_filename(form.imagem.data.filename)
-            caminho = os.path.join('static/uploads', filename)
+            caminho = os.path.join(upload_dir, filename)
             form.imagem.data.save(caminho)
 
         nova_memoria = Memoria(
@@ -78,3 +83,30 @@ def criar_memoria():
 def explorar_memorias():
     memorias = Memoria.query.filter_by(user_id=current_user.id).order_by(Memoria.data.desc()).all()
     return render_template('explorar_memorias.html', memorias=memorias)
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(os.path.join(app.root_path, 'static', 'uploads'), filename)
+
+@app.route('/deletar_memoria/<int:id>', methods=['POST'])
+@login_required
+def deletar_memoria(id):
+    memoria = Memoria.query.get_or_404(id)
+    
+    # Verifica se o usuário é o dono da memória
+    if memoria.user_id != current_user.id:
+        abort(403)
+    
+    # Remove a imagem associada se existir
+    if memoria.imagem:
+        try:
+            os.remove(os.path.join(app.root_path, 'static', 'uploads', memoria.imagem))
+        except FileNotFoundError:
+            pass
+    
+    db.session.delete(memoria)
+    db.session.commit()
+    flash('Memória deletada com sucesso!', 'success')
+    return redirect(url_for('explorar_memorias'))
+
+

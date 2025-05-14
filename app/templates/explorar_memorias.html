@@ -5,22 +5,25 @@
     body {
         background: linear-gradient(to bottom right, #fff1f5, #ffe4ec);
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
     }
 
     h2 {
         color: #c2185b;
         font-weight: bold;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
     }
 
     .card {
         border-radius: 20px;
         overflow: hidden;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: none;
     }
 
     .card:hover {
-        transform: scale(1.02);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(216, 27, 96, 0.1);
     }
 
     .card-img-top {
@@ -37,6 +40,7 @@
 
     .card-text {
         color: #555;
+        margin-bottom: 1rem;
     }
 
     .badge {
@@ -44,6 +48,7 @@
         font-weight: 500;
         border-radius: 10px;
         padding: 5px 10px;
+        margin-right: 5px;
     }
 
     .no-memories {
@@ -53,9 +58,64 @@
         color: #777;
     }
 
+    .btn-create {
+        background-color: #d81b60;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 10px 25px;
+        font-weight: 600;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
+    }
+
+    .btn-create:hover {
+        background-color: #c2185b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(216, 27, 96, 0.4);
+    }
+
+    .btn-delete {
+        background-color: #f8bbd0;
+        color: #d81b60;
+        border: none;
+        border-radius: 50px;
+        padding: 5px 15px;
+        font-weight: 500;
+        transition: all 0.3s;
+        margin-top: 10px;
+    }
+
+    .btn-delete:hover {
+        background-color: #f48fb1;
+        color: white;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+
+    .card-footer {
+        background: transparent;
+        border-top: none;
+        padding: 1rem 1.25rem;
+    }
+
     @media (max-width: 768px) {
         .card-img-top {
             height: 160px;
+        }
+        
+        .action-buttons {
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .btn-create {
+            width: 100%;
         }
     }
 </style>
@@ -63,7 +123,12 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Explorar Memórias ❤️</h2>
+    <div class="action-buttons">
+        <h2 class="text-center mb-0">Explorar Memórias ❤️</h2>
+        <a href="{{ url_for('criar_memoria') }}" class="btn btn-create">
+            <i class="fas fa-plus"></i> Nova Memória
+        </a>
+    </div>
 
     {% if memorias %}
     <div class="row">
@@ -71,7 +136,9 @@
         <div class="col-md-4 mb-4">
             <div class="card shadow-sm h-100">
                 {% if memoria.imagem %}
-                <img src="{{ url_for('static', filename='uploads/' + memoria.imagem) }}" class="card-img-top" alt="Imagem da memória">
+                    <img src="{{ url_for('uploaded_file', filename=memoria.imagem) }}"
+                         class="card-img-top"
+                         alt="Imagem da memória">
                 {% else %}
                     <img src="{{ url_for('static', filename='images/sem_imagem.png') }}"
                          class="card-img-top"
@@ -83,12 +150,24 @@
                     <p class="card-text">{{ memoria.descricao }}</p>
                     <span class="badge text-dark">{{ memoria.categoria }}</span>
                 </div>
+                <div class="card-footer">
+                    <form action="{{ url_for('deletar_memoria', id=memoria.id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar esta memória?');">
+                        <button type="submit" class="btn btn-delete">
+                            <i class="fas fa-trash"></i> Deletar
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
         {% endfor %}
     </div>
     {% else %}
-    <p class="no-memories">Nenhuma memória foi registrada ainda. Que tal criar uma nova? 💖</p>
+    <div class="text-center py-5">
+        <p class="no-memories">Nenhuma memória foi registrada ainda. Que tal criar uma nova? 💖</p>
+        <a href="{{ url_for('criar_memoria') }}" class="btn btn-create">
+            <i class="fas fa-plus"></i> Criar Primeira Memória
+        </a>
+    </div>
     {% endif %}
 </div>
 {% endblock %}
