@@ -2,141 +2,796 @@
 
 {% block content %}
 <style>
-  :root {
-    --primary: #e83e8c;
-    --gray-700: #6c757d;
-    --transition-fast: 0.15s ease;
-    --shadow-hover: 0 20px 30px rgba(0,0,0,0.15); /* box-shadow applied on hover */
-  }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-  .welcome-section {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    padding: 3rem 1rem;
+:root {
+  /* Color System */
+  --primary: #e83e8c;
+  --primary-light: #f06da4;
+  --primary-dark: #c22c70;
+  --secondary: #4a89dc;
+  --secondary-light: #6fa0e7;
+  --secondary-dark: #3069b0;
+  --accent: #8e44ad;
+  --accent-light: #a55bc8;
+  --accent-dark: #703688;
+  
+  /* Status Colors */
+  --success: #2ecc71;
+  --success-light: #52d98c;
+  --success-dark: #25a25a;
+  --warning: #f39c12;
+  --warning-light: #f6b33d;
+  --warning-dark: #c87f0a;
+  --error: #e74c3c;
+  --error-light: #ed6a5e;
+  --error-dark: #c0392b;
+  
+  /* Neutral Tones */
+  --dark: #343a40;
+  --gray-800: #495057;
+  --gray-700: #6c757d;
+  --gray-600: #868e96;
+  --gray-500: #adb5bd;
+  --gray-400: #ced4da;
+  --gray-300: #dee2e6;
+  --gray-200: #e9ecef;
+  --gray-100: #f8f9fa;
+  --white: #ffffff;
+  
+  /* Spacing System (8px grid) */
+  --space-1: 0.5rem;  /* 8px */
+  --space-2: 1rem;    /* 16px */
+  --space-3: 1.5rem;  /* 24px */
+  --space-4: 2rem;    /* 32px */
+  --space-5: 2.5rem;  /* 40px */
+  --space-6: 3rem;    /* 48px */
+  --space-7: 3.5rem;  /* 56px */
+  --space-8: 4rem;    /* 64px */
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 12px 28px rgba(0, 0, 0, 0.15);
+  
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+/* ====== BASE STYLES ====== */
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--dark);
+  background-color: var(--gray-100);
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-2);
+}
+
+/* ====== TYPOGRAPHY ====== */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+h1, .h1 {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-3);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+h2, .h2 {
+  font-size: 2rem;
+  margin-bottom: var(--space-2);
+}
+
+h3, .h3 {
+  font-size: 1.5rem;
+  margin-bottom: var(--space-2);
+}
+
+h4, .h4 {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-1);
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: var(--space-2);
+}
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: var(--space-3);
+  color: var(--gray-700);
+}
+
+.text-primary { color: var(--primary) !important; }
+.text-secondary { color: var(--secondary) !important; }
+.text-accent { color: var(--accent) !important; }
+.text-success { color: var(--success) !important; }
+.text-warning { color: var(--warning) !important; }
+.text-error { color: var(--error) !important; }
+.text-dark { color: var(--dark) !important; }
+.text-gray { color: var(--gray-700) !important; }
+.text-light { color: var(--gray-600) !important; }
+
+.font-weight-light { font-weight: 300 !important; }
+.font-weight-normal { font-weight: 400 !important; }
+.font-weight-medium { font-weight: 500 !important; }
+.font-weight-bold { font-weight: 600 !important; }
+.font-weight-bolder { font-weight: 700 !important; }
+
+.text-center { text-align: center !important; }
+.text-left { text-align: left !important; }
+.text-right { text-align: right !important; }
+
+/* ====== BUTTONS ====== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  transition: color var(--transition-normal), 
+              background-color var(--transition-normal),
+              border-color var(--transition-normal),
+              box-shadow var(--transition-normal),
+              transform var(--transition-fast);
+}
+
+.btn:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(232, 62, 140, 0.25);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+  border-radius: var(--radius-md);
+}
+
+.btn-sm {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: var(--radius-sm);
+}
+
+/* Primary button - Pink */
+.btn-primary {
+  color: var(--white);
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+/* Danger button - Red */
+.btn-danger {
+  color: var(--white);
+  background-color: var(--error);
+  border-color: var(--error);
+}
+
+.btn-danger:hover {
+  background-color: var(--error-dark);
+  border-color: var(--error-dark);
+}
+
+/* Outline primary button */
+.btn-outline-primary {
+  color: var(--primary);
+  border-color: var(--primary);
+  background-color: transparent;
+}
+
+.btn-outline-primary:hover {
+  color: var(--white);
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+/* With icons */
+.btn i {
+  margin-left: 0.5rem;
+}
+
+/* ====== CARDS ====== */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: var(--white);
+  background-clip: border-box;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-normal), 
+              box-shadow var(--transition-normal);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+.card-img-top {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
+}
+
+.card-body {
+  flex: 1 1 auto;
+  padding: var(--space-3);
+}
+
+.card-title {
+  margin-bottom: var(--space-1);
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.card-text {
+  color: var(--gray-700);
+  margin-bottom: var(--space-2);
+}
+
+/* ====== LIST GROUPS ====== */
+.list-group {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.list-group-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: var(--space-2) 0;
+  background-color: transparent;
+  border-bottom: 1px solid var(--gray-200);
+  transition: background-color var(--transition-normal);
+}
+
+.list-group-item:last-child {
+  border-bottom: none;
+}
+
+.list-group-item:hover {
+  background-color: var(--gray-100);
+}
+
+.list-group-item i {
+  font-size: 1.5rem;
+  margin-right: var(--space-2);
+  transition: transform var(--transition-normal);
+}
+
+.list-group-item:hover i {
+  transform: scale(1.2);
+}
+
+/* ====== UTILITY CLASSES ====== */
+.mt-1 { margin-top: var(--space-1) !important; }
+.mt-2 { margin-top: var(--space-2) !important; }
+.mt-3 { margin-top: var(--space-3) !important; }
+.mt-4 { margin-top: var(--space-4) !important; }
+.mt-5 { margin-top: var(--space-5) !important; }
+
+.mb-1 { margin-bottom: var(--space-1) !important; }
+.mb-2 { margin-bottom: var(--space-2) !important; }
+.mb-3 { margin-bottom: var(--space-3) !important; }
+.mb-4 { margin-bottom: var(--space-4) !important; }
+.mb-5 { margin-bottom: var(--space-5) !important; }
+
+.mx-1 { margin-left: var(--space-1) !important; margin-right: var(--space-1) !important; }
+.mx-2 { margin-left: var(--space-2) !important; margin-right: var(--space-2) !important; }
+.mx-3 { margin-left: var(--space-3) !important; margin-right: var(--space-3) !important; }
+
+.my-1 { margin-top: var(--space-1) !important; margin-bottom: var(--space-1) !important; }
+.my-2 { margin-top: var(--space-2) !important; margin-bottom: var(--space-2) !important; }
+.my-3 { margin-top: var(--space-3) !important; margin-bottom: var(--space-3) !important; }
+.my-4 { margin-top: var(--space-4) !important; margin-bottom: var(--space-4) !important; }
+.my-5 { margin-top: var(--space-5) !important; margin-bottom: var(--space-5) !important; }
+
+.p-1 { padding: var(--space-1) !important; }
+.p-2 { padding: var(--space-2) !important; }
+.p-3 { padding: var(--space-3) !important; }
+.p-4 { padding: var(--space-4) !important; }
+.p-5 { padding: var(--space-5) !important; }
+
+.py-1 { padding-top: var(--space-1) !important; padding-bottom: var(--space-1) !important; }
+.py-2 { padding-top: var(--space-2) !important; padding-bottom: var(--space-2) !important; }
+.py-3 { padding-top: var(--space-3) !important; padding-bottom: var(--space-3) !important; }
+.py-4 { padding-top: var(--space-4) !important; padding-bottom: var(--space-4) !important; }
+.py-5 { padding-top: var(--space-5) !important; padding-bottom: var(--space-5) !important; }
+
+.px-1 { padding-left: var(--space-1) !important; padding-right: var(--space-1) !important; }
+.px-2 { padding-left: var(--space-2) !important; padding-right: var(--space-2) !important; }
+.px-3 { padding-left: var(--space-3) !important; padding-right: var(--space-3) !important; }
+.px-4 { padding-left: var(--space-4) !important; padding-right: var(--space-4) !important; }
+
+.shadow-sm { box-shadow: var(--shadow-sm) !important; }
+.shadow { box-shadow: var(--shadow-md) !important; }
+.shadow-lg { box-shadow: var(--shadow-lg) !important; }
+
+.rounded { border-radius: var(--radius-md) !important; }
+.rounded-lg { border-radius: var(--radius-lg) !important; }
+.rounded-circle { border-radius: 50% !important; }
+
+/* ====== ANIMATIONS ====== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
   }
-  .welcome-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
-  .welcome-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 2.5rem;
-    color: var(--primary);
-    margin-bottom: 1rem;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.15); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.15); }
+  70% { transform: scale(1); }
+}
+
+.animate__fadeIn {
+  animation: fadeIn 1s;
+}
+
+.animate__slideInUp {
+  animation: slideInUp 0.8s;
+}
+
+.animate__pulse {
+  animation: pulse 2s infinite;
+}
+
+.animate__heartBeat {
+  animation: heartBeat 1.5s;
+}
+
+.animate__bounceIn {
+  animation: heartBeat 1s;
+}
+
+.animate__infinite {
+  animation-iteration-count: infinite;
+}
+
+/* ====== HERO SECTION ====== */
+.hero {
+  padding: var(--space-7) 0;
+  text-align: center;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-4);
+}
+
+.hero-title {
+  color: var(--primary);
+  margin-bottom: var(--space-3);
+  font-size: 3rem;
+  font-weight: 700;
+  animation: fadeIn 1s ease-out;
+}
+
+.hero-subtitle {
+  color: var(--gray-700);
+  margin-bottom: var(--space-4);
+  font-size: 1.5rem;
+  font-weight: 300;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: slideInUp 0.8s ease-out;
+}
+
+/* ====== MEMORY CARDS ====== */
+.memory-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: var(--white);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--space-4);
+  transition: transform var(--transition-normal), 
+              box-shadow var(--transition-normal);
+}
+
+.memory-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+.memory-card-img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.memory-card-content {
+  padding: var(--space-3);
+}
+
+.memory-card-date {
+  color: var(--gray-600);
+  font-size: 0.875rem;
+  margin-bottom: var(--space-1);
+}
+
+.memory-card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+  color: var(--dark);
+}
+
+.memory-card-description {
+  color: var(--gray-700);
+  margin-bottom: var(--space-2);
+}
+
+/* ====== RESPONSIVE DESIGN ====== */
+@media (max-width: 767.98px) {
+  /* Mobile */
+  .container {
+    padding: var(--space-2);
   }
-  .welcome-subtitle {
+  
+  h1, .h1 {
+    font-size: 2rem;
+  }
+  
+  h2, .h2 {
+    font-size: 1.75rem;
+  }
+  
+  .btn-lg {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+  }
+  
+  .card-img-top {
+    height: 180px;
+  }
+  
+  .hero {
+    padding: var(--space-4) 0;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle {
     font-size: 1.25rem;
-    color: var(--gray-700);
-    margin-bottom: 2rem;
   }
-  .welcome-actions .btn {
-    margin: 0 0.5rem;
-    transition: transform var(--transition-fast);
+  
+  .memory-card-img {
+    height: 200px;
   }
-  .welcome-actions .btn:hover {
-    transform: translateY(-2px);
-  }
+}
 
-  /* Tilt & Shadow Effect on Card */
-  .tilt-card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease; /* smooth transform and shadow */
-    will-change: transform;
-    cursor: pointer; /* indicate interactivity */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  /* Tablet */
+  h1, .h1 {
+    font-size: 2.25rem;
   }
+  
+  .card-img-top {
+    height: 200px;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .memory-card-img {
+    height: 250px;
+  }
+}
+
+@media (min-width: 992px) {
+  /* Desktop */
+  .container {
+    padding: var(--space-4);
+  }
+}
+
+/* ====== CUSTOM STYLES FOR LOVEWITH-U ====== */
+.heart-icon {
+  color: var(--primary);
+  animation: heartBeat 1.5s infinite;
+}
+
+.memory-date {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background-color: var(--primary-light);
+  color: var(--white);
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: var(--space-2);
+}
+
+.memory-location {
+  display: flex;
+  align-items: center;
+  color: var(--gray-700);
+  font-size: 0.875rem;
+  margin-bottom: var(--space-2);
+}
+
+.memory-location i {
+  margin-right: var(--space-1);
+  color: var(--secondary);
+}
+
+.love-quote {
+  font-style: italic;
+  padding: var(--space-3);
+  background-color: var(--gray-100);
+  border-left: 4px solid var(--primary);
+  margin: var(--space-3) 0;
+  border-radius: var(--radius-md);
+}
+
+.special-date {
+  display: flex;
+  align-items: center;
+  background-color: var(--gray-100);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-2);
+  transition: background-color var(--transition-normal);
+}
+
+.special-date:hover {
+  background-color: var(--gray-200);
+}
+
+.special-date-icon {
+  width: 48px;
+  height: 48px;
+  background-color: var(--primary);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: var(--space-2);
+}
+
+.special-date-icon i {
+  font-size: 1.5rem;
+}
+
+.special-date-content {
+  flex: 1;
+}
+
+.special-date-title {
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 0.25rem;
+}
+
+.special-date-desc {
+  color: var(--gray-700);
+  font-size: 0.875rem;
+}
+
+/* Custom footer for LoveWithU */
+.footer {
+  background-color: var(--gray-800);
+  color: var(--gray-300);
+  padding: var(--space-5) 0;
+  margin-top: var(--space-6);
+}
+
+.footer-title {
+  color: var(--white);
+  margin-bottom: var(--space-2);
+  font-weight: 600;
+}
+
+.footer-link {
+  color: var(--gray-400);
+  text-decoration: none;
+  display: block;
+  padding: var(--space-1) 0;
+  transition: color var(--transition-normal);
+}
+
+.footer-link:hover {
+  color: var(--primary-light);
+}
+
+.footer-social {
+  display: flex;
+  margin-top: var(--space-2);
+}
+
+.footer-social-link {
+  width: 36px;
+  height: 36px;
+  background-color: var(--gray-700);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: var(--space-1);
+  transition: background-color var(--transition-normal), 
+              transform var(--transition-normal);
+}
+
+.footer-social-link:hover {
+  background-color: var(--primary);
+  transform: translateY(-3px);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--gray-700);
+  padding-top: var(--space-3);
+  margin-top: var(--space-4);
+  text-align: center;
+  color: var(--gray-500);
+  font-size: 0.875rem;
+}
+
+/* Love heart animation */
+.floating-heart {
+  position: fixed;
+  color: var(--primary-light);
+  opacity: 0.6;
+  z-index: -1;
+  animation: floatHeart 6s ease-in-out infinite;
+}
+
+@keyframes floatHeart {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-20px) scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+}
 </style>
 
-<!-- Seção de boas-vindas -->
-<div class="welcome-section">
-  <div class="welcome-content">
-    <h1 class="welcome-title">Bem-vindo {{ current_user.name }} ao LoveWithU!</h1>
-    <p class="welcome-subtitle">Aqui você pode guardar e compartilhar momentos especiais com quem ama 💖</p>
-    <div class="welcome-actions">
-      <a class="btn btn-danger btn-lg" href="{{ url_for('criar_memoria') }}">
-        Criar nova memória <i class="fas fa-heart"></i>
-      </a>
-      <a class="btn btn-outline-primary btn-lg" href="{{ url_for('explorar_memorias') }}">
-        Explorar Memórias <i class="fas fa-search"></i>
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- Conteúdo Principal -->
 <div class="container my-5">
-  <div class="row">
-    <!-- Card 1 com efeito de tilt -->
-    <div class="col-md-6 mb-4">
-      <div class="card shadow-lg rounded tilt-card">
-        <img src="https://blog.usealtar.com.br/wp-content/uploads/2022/01/casal-feliz-saudavel.jpg"
-             class="card-img-top"
-             alt="Imagem de casal">
-        <div class="card-body">
-          <h5 class="card-title">Momentos a dois</h5>
-          <p class="card-text">Reviva os melhores momentos juntos, repletos de amor e carinho.</p>
-        </div>
-      </div>
-    </div>
-    <!-- Card 2 com efeito de tilt -->
-    <div class="col-md-6 mb-4">
-      <div class="card shadow-lg rounded tilt-card">
-        <img src="https://img.freepik.com/fotos-premium/maos-femininas-e-masculinas-em-forma-de-coracao-contra-o-ceu-maos-em-forma-de-coracao-de-amor-coracao-de-maos-em-um-fundo-do-ceu_293990-399.jpg?semt=ais_hybrid&w=740"
-             class="card-img-top"
-             alt="Imagem de amor">
-        <div class="card-body">
-          <h5 class="card-title">Memórias que encantam</h5>
-          <p class="card-text">Guarde as fotos, mensagens e datas mais significativas do seu relacionamento.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-12 text-center">
+            <h1 class="display-3 font-weight-bold text-primary mb-4">Bem-vindo(a) ao LoveWithU!</h1>
+            <p class="lead mb-4">
+                Aqui você pode guardar e compartilhar momentos especiais com quem ama 💖
+            </p>
 
-  <div class="mt-5">
-    <h2 class="text-secondary font-weight-bold">Como funciona?</h2>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item d-flex align-items-center">
-        <i class="fas fa-camera-retro mr-3 text-danger"></i>
-        Crie memórias com fotos e textos personalizados.
-      </li>
-      <li class="list-group-item d-flex align-items-center">
-        <i class="fas fa-calendar-alt mr-3 text-primary"></i>
-        Adicione datas e eventos especiais ao longo da sua história.
-      </li>
-      <li class="list-group-item d-flex align-items-center">
-        <i class="fas fa-share-alt mr-3 text-success"></i>
-        Compartilhe suas memórias com seu parceiro(a) ou amigos.
-      </li>
-    </ul>
-  </div>
+            <div class="mb-5">
+                <a class="btn btn-lg btn-danger mr-3 animate__animated animate__bounceIn" href="{{ url_for('criar_memoria') }}">
+                    Criar nova memória
+                    <i class="fas fa-heart ml-2"></i>
+                </a>
+
+
+                <a class="btn btn-lg btn-outline-primary animate__animated animate__pulse animate__infinite" href="{{ url_for('explorar_memorias') }}">
+                    Explorar Memórias
+                    <i class="fas fa-search ml-2"></i>
+                </a>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-lg rounded">
+                        <img src="https://blog.usealtar.com.br/wp-content/uploads/2022/01/casal-feliz-saudavel.jpg" class="card-img-top" alt="Imagem de casal">
+                        <div class="card-body">
+                            <h5 class="card-title">Momentos a dois</h5>
+                            <p class="card-text">Reviva os melhores momentos juntos, repletos de amor e carinho.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-lg rounded">
+                        <img src="https://img.freepik.com/fotos-premium/maos-femininas-e-masculinas-em-forma-de-coracao-contra-o-ceu-maos-em-forma-de-coracao-de-amor-coracao-de-maos-em-um-fundo-do-ceu_293990-399.jpg?semt=ais_hybrid&w=740" class="card-img-top" alt="Imagem de amor">
+                        <div class="card-body">
+                            <h5 class="card-title">Memórias que encantam</h5>
+                            <p class="card-text">Guarde as fotos, mensagens e datas mais significativas do seu relacionamento.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5">
+                <h2 class="text-secondary font-weight-bold">Como funciona?</h2>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex align-items-center">
+                        <i class="fas fa-camera-retro mr-3 text-danger"></i>
+                        Crie memórias com fotos e textos personalizados.
+                    </li>
+                    <li class="list-group-item d-flex align-items-center">
+                        <i class="fas fa-calendar-alt mr-3 text-primary"></i>
+                        Adicione datas e eventos especiais ao longo da sua história.
+                    </li>
+                    <li class="list-group-item d-flex align-items-center">
+                        <i class="fas fa-share-alt mr-3 text-success"></i>
+                        Compartilhe suas memórias com seu parceiro(a) ou amigos.
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
 </div>
-
-<!-- Script para Tilt & Shadow -->
-<script>
-  document.querySelectorAll('.tilt-card').forEach(function(card) {
-    // Quando o mouse se move sobre o card
-    card.addEventListener('mousemove', function(e) {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left; // posição horizontal do cursor
-      const y = e.clientY - rect.top;  // posição vertical do cursor
-      const midX = rect.width / 2;
-      const midY = rect.height / 2;
-      const deltaX = (x - midX) / midX; // normalizado entre -1 e 1
-      const deltaY = (y - midY) / midY; // normalizado entre -1 e 1
-      const rotX = deltaY * 5;         // rotação máxima de 10º em X
-      const rotY = deltaX * -5;        // rotação máxima de 10º em Y
-      
-      // Aplica perspectiva, rotação e sombra ao card
-      card.style.transform = 
-        `perspective(500px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-      card.style.boxShadow = `var(--shadow-hover)`; // aumenta sombra
-    });
-    
-    // Quando o mouse sai da área do card, reseta estilos
-    card.addEventListener('mouseleave', function() {
-      card.style.transform = 'perspective(500px) rotateX(0deg) rotateY(0deg)';
-      card.style.boxShadow = ''; // retorna sombra original do .shadow-lg
-    });
-  });
-</script>
- {% endblock %}
-
-
+{% endblock %}

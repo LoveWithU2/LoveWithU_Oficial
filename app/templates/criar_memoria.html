@@ -2,193 +2,132 @@
 
 {% block styles %}
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    body {
+        background: linear-gradient(to right, #ffe4ec, #fdf0f5);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-  :root {
-    --primary: #e83e8c;
-    --primary-dark: #c22c70;
-    --primary-light: #f06da4;
-    --gray-700: #6c757d;
-    --white-bg: #ffffff;
-    --shadow-base: 0 4px 12px rgba(0,0,0,0.08);
-    --shadow-hover: 0 8px 20px rgba(0,0,0,0.12);
-    --radius-lg: 1rem;
-    --radius-pill: 9999px;
-    --transition-fast: 0.15s ease;
-    --transition-normal: 0.3s ease;
-  }
+    .card {
+        background-color: #fff;
+        border-radius: 20px;
+        border: none;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
 
-  body {
-    background: var(--white-bg);
-    font-family: 'Poppins', sans-serif;
-    color: var(--gray-700);
-    margin: 0;
-    padding: 0;
-  }
+    h2.text-primary {
+        color: #d81b60 !important;
+        font-weight: bold;
+    }
 
-  .card {
-    background: var(--white-bg);
-    border: none;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-base);
-    transition: transform var(--transition-fast), box-shadow var(--transition-normal);
-  }
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-hover);
-  }
+    .form-label {
+        font-weight: 600;
+        color: #c2185b;
+    }
 
-  h2.text-primary {
-    color: var(--primary) !important;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
+    .form-control {
+        border-radius: 12px;
+        border: 2px solid #f8bbd0;
+        transition: all 0.3s ease;
+        padding: 10px 15px;
+        font-size: 16px;
+        background-color: #fff0f5;
+    }
 
-  .form-group {
-    margin-bottom: 1.5rem;
-  }
+    .form-control:focus {
+        border-color: #ec407a;
+        box-shadow: 0 0 8px #f48fb1;
+    }
 
-  .form-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: var(--primary-dark);
-  }
+    .form-control-file {
+        background-color: #fff0f5;
+        border: 2px dashed #f8bbd0;
+        border-radius: 12px;
+        padding: 10px;
+        width: 100%;
+    }
 
-  .form-control,
-  .form-control-file {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    border: 2px solid var(--primary-light);
-    border-radius: 0.5rem;
-    background: #fff0f5;
-    transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
-  }
-  .form-control:focus {
-    border-color: var(--primary);
-    box-shadow: 0 0 8px var(--primary-light);
-    outline: none;
-  }
-  .form-control-file {
-    border-style: dashed;
-  }
-  .form-control-file:hover {
-    border-color: var(--primary);
-  }
+    .btn-success {
+        background-color: #e91e63;
+        border: none;
+        padding: 12px 35px;
+        border-radius: 30px;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow: 0 5px 20px rgba(233, 30, 99, 0.3);
+        transition: background-color 0.3s ease;
+    }
 
-  ::placeholder {
-    color: var(--gray-700);
-  }
+    .btn-success:hover {
+        background-color: #c2185b;
+    }
 
-  .btn-success {
-    background: var(--primary);
-    color: var(--white-bg);
-    padding: 0.75rem 2rem;
-    font-size: 1.125rem;
-    font-weight: 700;
-    border: none;
-    border-radius: var(--radius-pill);
-    transition: transform var(--transition-fast), background var(--transition-normal);
-  }
-  .btn-success:hover {
-    background: var(--primary-dark);
-    transform: scale(1.05);
-  }
+    ::placeholder {
+        color: #c48b9f;
+    }
 
-  .date-inputs {
-    display: flex;
-    gap: 0.5rem;
-  }
-  .date-inputs .form-control {
-    flex: 1;
-    text-align: center;
-  }
+    .card-body {
+        background: linear-gradient(to top right, #fff, #ffeef4);
+        border-radius: 20px;
+    }
 
-  @media (max-width: 768px) {
-    h2.text-primary { font-size: 1.5rem; }
-    .btn-success { font-size: 1rem; padding: 0.5rem 1.5rem; }
-    .date-inputs { flex-direction: column; }
-  }
+    @media (max-width: 768px) {
+        h2 {
+            font-size: 24px;
+        }
+
+        .btn-success {
+            font-size: 16px;
+            padding: 10px 25px;
+        }
+    }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="container my-5">
-  <div class="row justify-content-center">
-    <div class="col-lg-8 col-md-10">
-      <div class="card">
-        <div class="card-body p-5">
-          <h2 class="text-center text-primary">✨ Criar Nova Memória</h2>
-          <form id="memoria-form" method="POST" enctype="multipart/form-data">
-            {{ form.hidden_tag() }}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-lg border-0 rounded">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4 text-primary">✨ Criar Nova Memória</h2>
 
-            <div class="form-group">
-              {{ form.titulo.label(class='form-label') }}
-              {{ form.titulo(class='form-control', placeholder='Ex: Aniversário de 1 ano') }}
-            </div>
+                    <form method="POST" enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
 
-            <div class="form-group">
-              {{ form.data.label(class='form-label') }}
-              <div class="date-inputs">
-                <input id="day-input"   class="form-control" type="text" maxlength="2" placeholder="DD" pattern="\d{2}">
-                <input id="month-input" class="form-control" type="text" maxlength="2" placeholder="MM" pattern="\d{2}">
-                <input id="year-input"  class="form-control" type="text" maxlength="4" placeholder="YYYY" pattern="\d{4}">
-              </div>
-              <input id="date-hidden" name="data" type="hidden">
-            </div>
+                        <div class="form-group mb-4">
+                            {{ form.titulo.label(class="form-label font-weight-bold") }}
+                            {{ form.titulo(class="form-control", placeholder="Ex: Aniversário de 1 ano") }}
+                        </div>
 
-            <div class="form-group">
-              {{ form.categoria.label(class='form-label') }}
-              {{ form.categoria(class='form-control') }}
-            </div>
+                        <div class="form-group mb-4">
+                            {{ form.data.label(class="form-label font-weight-bold") }}
+                            {{ form.data(class="form-control") }}
+                        </div>
 
-            <div class="form-group">
-              {{ form.descricao.label(class='form-label') }}
-              {{ form.descricao(class='form-control', rows=5, placeholder='Conte com carinho essa lembrança especial...') }}
-            </div>
+                        <div class="form-group mb-4">
+                            {{ form.categoria.label(class="form-label font-weight-bold") }}
+                            {{ form.categoria(class="form-control") }}
+                        </div>
 
-            <div class="form-group">
-              {{ form.imagem.label(class='form-label') }}
-              {{ form.imagem(class='form-control-file') }}
-            </div>
+                        <div class="form-group mb-4">
+                            {{ form.descricao.label(class="form-label font-weight-bold") }}
+                            {{ form.descricao(class="form-control", rows=5, placeholder="Conte com carinho essa lembrança especial...") }}
+                        </div>
 
-            <div class="text-center">
-              <button type="submit" class="btn btn-success">Salvar Memória 💌</button>
+                        <div class="form-group mb-4">
+                            {{ form.imagem.label(class="form-label font-weight-bold") }}
+                            {{ form.imagem(class="form-control-file") }}
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-lg btn-success px-5">
+                                Salvar Memória 💌
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-          </form>
         </div>
-      </div>
     </div>
-  </div>
 </div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const dayEl   = document.getElementById('day-input');
-    const monthEl = document.getElementById('month-input');
-    const yearEl  = document.getElementById('year-input');
-    const hidden  = document.getElementById('date-hidden');
-    const currentYear = new Date().getFullYear();
-
-    function sanitize(el, max) {
-      el.value = el.value.replace(/\D/g, '').slice(0, max);
-    }
-
-    function updateDate() {
-      const dd = dayEl.value.padStart(2, '0');
-      const mm = monthEl.value.padStart(2, '0');
-      const yy = yearEl.value;
-      if (dd.length === 2 && mm.length === 2 && yy.length === 4) {
-        hidden.value = `${yy}-${mm}-${dd}`;
-      } else {
-        hidden.value = '';
-      }
-    }
-
-    dayEl.addEventListener('input', () => { sanitize(dayEl, 2); updateDate(); });
-    monthEl.addEventListener('input', () => { sanitize(monthEl, 2); updateDate(); });
-    yearEl.addEventListener('input', () => { sanitize(yearEl, 4); updateDate(); });
-  });
-</script>
 {% endblock %}
