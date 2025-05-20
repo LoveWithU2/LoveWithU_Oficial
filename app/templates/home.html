@@ -1,272 +1,373 @@
 {% extends 'base.html' %}
 
 {% block styles %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <style>
-  body {
-    background: #fafafa;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica Neue, Arial, sans-serif;
-    color: #333;
-    margin: 0;
-    padding: 0;
-  }
-  .hero {
-    padding: 6rem 1rem;
-    text-align: center;
-    background: #fff;
-  }
-  .hero h1 {
-    font-size: 2.75rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-  }
-  .hero p {
-    font-size: 1.25rem;
-    color: #666;
-    max-width: 600px;
-    margin: 0 auto 1.5rem;
-  }
-  .hero .subtext {
-    font-size: 1rem;
-    color: #888;
-    max-width: 500px;
-    margin: 0 auto 2rem;
-  }
-  .btn-primary-home {
-    background-color: #d63384;
-    color: #fff;
-    border: none;
-    padding: 0.75rem 2rem;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 0.5rem;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-  }
-  .btn-primary-home:hover {
-    background-color: #b32a6c;
-    transform: scale(1.05);
-  }
-  .spotlight {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-    padding: 4rem 1rem;
-    gap: 2rem;
-  }
-  .spotlight-text {
-    flex: 1 1 300px;
-    max-width: 400px;
-    text-align: left;
-  }
-  .spotlight-text h2 {
-    font-size: 2rem;
-    color: #d63384;
-    margin-bottom: 1rem;
-  }
-  .spotlight-text p {
-    font-size: 1rem;
-    color: #555;
-    line-height: 1.5;
-  }
-  .spotlight-image {
-    flex: 1 1 300px;
-    max-width: 400px;
-  }
-  .spotlight-image img {
-    width: 100%;
-    border-radius: 1rem;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-  }
-  .features {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    padding: 4rem 1rem;
-    background: #fff;
-  }
-  .features h2 {
-    width: 100%;
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    color: #d63384;
-  }
-  .feature {
-    flex: 1 1 200px;
-    max-width: 240px;
-    text-align: center;
-    margin: 1rem;
-  }
-  .feature i {
-    font-size: 2rem;
-    color: #d63384;
-    margin-bottom: 0.75rem;
-  }
-  .feature h3 {
-    font-size: 1.125rem;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-  }
-  .feature p {
-    font-size: 0.95rem;
-    color: #555;
-  }
-  .plans {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    padding: 4rem 1rem;
-    background: #fafafa;
-  }
-  .plan {
-    background: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 1rem;
-    width: 260px;
-    padding: 2rem 1rem;
-    text-align: center;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-  }
-  .plan-popular {
-    border-color: #d63384;
-    box-shadow: 0 4px 20px rgba(214,51,132,0.2);
-    transform: scale(1.05);
-  }
-  .plan h4 {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-    color: #d63384;
-    font-weight: 600;
-  }
-  .plan ul {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 1.5rem;
-    text-align: left;
-  }
-  .plan li {
-    margin: 0.5rem 0;
-    font-size: 0.95rem;
-    color: #444;
-    display: flex;
-    align-items: center;
-  }
-  .plan li .available {
-    color: #d63384;
-    margin-right: 0.5rem;
-  }
-  .plan li .unavailable {
-    color: #bbb;
-    margin-right: 0.5rem;
-  }
-  .plan .btn {
-    margin-top: 1rem;
-    background-color: transparent;
-    color: #d63384;
-    border: 2px solid #d63384;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    font-weight: 600;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-  }
-  .plan .btn:hover {
-    background-color: #d63384;
-    color: #fff;
-  }
+    body {
+        background-color: #fff;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        color: #1d1d1f;
+        margin: 0;
+    }
+
+    .hero-section {
+        padding: 5rem 1rem 3rem;
+        text-align: center;
+        background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: white;
+        margin: 0;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
+
+    /* Tamanho do H1 aumentado */
+    .hero-section h1 {
+        font-size: 4rem; /* Aumentado de 3rem para 4rem */
+        font-weight: 700;
+        color: #fff;
+        margin: 0 auto;
+        padding: 0.5rem 0;
+        max-width: 800px;
+    }
+
+    /* Tamanho do P no hero-section aumentado */
+    .hero-section p {
+        font-size: 1.5rem; /* Aumentado de 1.25rem para 1.5rem */
+        color: #fff;
+        margin: 0 auto;
+        padding: 0.5rem 0;
+        max-width: 800px;
+    }
+
+    .btn-primary-home {
+        background-color: #d63384;
+        color: white;
+        padding: 1rem 2.5rem;
+        border-radius: 2rem;
+        font-weight: bold;
+        text-decoration: none;
+        transition: transform 0.3s, background-color 0.3s;
+        display: inline-block;
+        margin-top: 1rem;
+    }
+
+    .btn-primary-home:hover {
+        background-color: #c2185b;
+        transform: scale(1.05);
+    }
+
+    .section {
+        padding: 5rem 1rem;
+        text-align: center;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: white;
+        margin: 0;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
+
+    /* Tamanho do H2 aumentado nas seções gerais */
+    .section h2 {
+        font-size: 3rem; /* Aumentado */
+        margin: 0 auto;
+        padding: 0.5rem 0;
+        max-width: 800px;
+    }
+
+    /* Tamanho do P aumentado nas seções gerais */
+    .section p {
+        font-size: 1.35rem; /* Aumentado */
+        margin: 0 auto;
+        padding: 0.5rem 0;
+        max-width: 800px;
+    }
+
+    .feature-image {
+        margin: 2rem 0;
+        max-width: 90%;
+        border-radius: 1rem;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+
+    .partners-logos {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .partners-logos img {
+        height: 50px;
+        filter: grayscale(100%);
+        transition: filter 0.3s ease;
+    }
+
+    .partners-logos img:hover {
+        filter: none;
+    }
+
+    /* Seção dos Planos */
+    .plans-section {
+        padding: 5rem 1rem;
+        text-align: center;
+        background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://cdn0.casamentos.com.br/article-vendor/2958/3_2/1280/jpg/jonathan-borba-ac5-efhq7fs-unsplash-1_13_352958-167353954298643.jpeg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: white;
+        margin: 0;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
+
+    /* Tamanho do H2 da seção de planos aumentado (igual ao .section h2) */
+    .plans-section h2 {
+        font-size: 3rem; /* Aumentado */
+        color: white;
+        margin: 0 auto;
+        max-width: 800px;
+    }
+
+    .plans-section::before {
+        content: none;
+    }
+
+    .plan-box {
+        max-width: 1100px;
+        margin: auto;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+    }
+
+    .plan-cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .plan-card {
+        flex: 1 1 300px;
+        border-radius: 1rem;
+        padding: 2rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        color: #1d1d1f;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+        background-blend-mode: multiply;
+    }
+
+    .plan-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15), 0 0 25px 8px #ff69b4;
+    }
+
+    /* ESTES ESTILOS NÃO FORAM ALTERADOS, CONFORME SOLICITADO */
+    .plan-card h3 {
+        font-size: 1.8rem;
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+    }
+
+    .plan-card .subtitle {
+        font-size: 1.1rem;
+        color: #6e6e73;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .plan-card .price {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .plan-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .plan-card ul li {
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: flex-start;
+        color: #333;
+    }
+
+    .plan-card ul li:last-child {
+        margin-bottom: 0;
+    }
+
+    .plan-card ul li .check-icon {
+        color: #28a745;
+        margin-right: 0.75rem;
+        font-size: 1.2em;
+        line-height: 1.2;
+        flex-shrink: 0;
+    }
+    /* FIM DOS ESTILOS NÃO ALTERADOS */
+
+    .bronze-plan {
+        background-color: #cd7f32;
+        background-image: url('https://www.transparenttextures.com/patterns/brushed-metal.png');
+        color: #2c2c2c;
+    }
+    .bronze-plan h3,
+    .bronze-plan .price {
+        color: #4b3d2b;
+    }
+    .bronze-plan .subtitle,
+    .bronze-plan ul li {
+        color: #4a4a4a;
+    }
+
+    .silver-plan {
+        background-color: #c0c0c0;
+        background-image: url('https://www.transparenttextures.com/patterns/grey-wash-metal.png');
+        color: #2c2c2c;
+    }
+    .silver-plan h3,
+    .silver-plan .price {
+        color: #3d3d3d;
+    }
+    .silver-plan .subtitle,
+    .silver-plan ul li {
+        color: #4a4a4a;
+    }
+
+    .gold-plan {
+        background-color: #ffd700;
+        background-image: url('https://www.transparenttextures.com/patterns/gold-fabric.png');
+        color: #2c2c2c;
+    }
+    .gold-plan h3,
+    .gold-plan .price {
+        color: #a67c00;
+    }
+    .gold-plan .subtitle,
+    .gold-plan ul li {
+        color: #4a4a4a;
+    }
+
+    .section-divider {
+        border: none;
+        border-top: 1px solid white;
+        margin: 0;
+    }
 </style>
 {% endblock %}
 
 {% block content %}
-<section class="hero">
-  <h1>Conecte-se. Apaixone-se. Cresça junto.</h1>
-  <p>No LoveWithU, ajudamos você a encontrar conexões reais e viver momentos especiais com quem realmente importa.</p>
-  <p class="subtext">Descubra novas possibilidades, celebre cada momento e construa uma história única a dois.</p>
-  <a href="{{ url_for('register') }}" class="btn-primary-home">Começar Gratuitamente</a>
-</section>
+<div class="hero-section">
+    <h1>Conecte corações com o LoveWithU</h1>
+    <p>Descubra relacionamentos reais com recursos pensados para você e seu par. Com LoveWithU, cada detalhe é feito para celebrar e aprofundar a sua conexão, tornando a experiência de amar ainda mais especial e inesquecível.</p>
+    <a href="{{ url_for('register') }}" class="btn-primary-home">Comece gratuitamente</a>
+</div>
 
-<section class="spotlight">
-  <div class="spotlight-text">
-    <h2>Encontre o Par Perfeito</h2>
-    <p>Use nosso algoritmo inteligente para combinar você com pessoas que compartilham seus interesses e valores. Tenha conversas significativas e construa relacionamentos duradouros.</p>
-  </div>
-  <div class="spotlight-image">
-    <img src="{{ url_for('static', filename='images/couple-chat.jpg') }}" alt="Casal conversando">
-  </div>
-</section>
+<hr class="section-divider">
 
-<section class="features">
-  <h2>Descubra o que oferecemos</h2>
-  <div class="feature">
-    <i class="bi bi-chat-dots"></i>
-    <h3>Mensagem Única</h3>
-    <p>Envie uma mensagem especial gratuitamente para despertar conexões.</p>
-  </div>
-  <div class="feature">
-    <i class="bi bi-image"></i>
-    <h3>Fotos nas Mensagens</h3>
-    <p>Armazene imagens e crie lembranças para sempre (Premium).</p>
-  </div>
-  <div class="feature">
-    <i class="bi bi-clock"></i>
-    <h3>Contador de Tempo</h3>
-    <p>Acompanhe a duração do seu relacionamento com um contador personalizado (Premium).</p>
-  </div>
-  <div class="feature">
-    <i class="bi bi-percent"></i>
-    <h3>Descontos Exclusivos</h3>
-    <p>Aproveite ofertas especiais no nosso marketplace para casais (Premium).</p>
-  </div>
-</section>
+<div class="section" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1517841905240-472988babdf9');">
+    <h2>Mensagens com Emoção</h2>
+    <p>Vá além das palavras comuns e envie mensagens que realmente tocam o coração. No LoveWithU, mesmo no plano gratuito, você tem a oportunidade de enviar uma mensagem verdadeiramente especial e marcante para aquela pessoa que ilumina seus dias. Expresse seus sentimentos de forma única e crie momentos inesquecíveis a cada troca de carinho.</p>
+</div>
 
-<section class="plans">
-  <div class="plan">
-    <h4>Plano Free</h4>
-    <ul>
-      <li><span class="available">✔</span> Mensagem Única</li>
-      <li><span class="unavailable">✖</span> Fotos nas Mensagens</li>
-      <li><span class="unavailable">✖</span> Contador de Tempo</li>
-      <li><span class="unavailable">✖</span> Descontos no Marketplace</li>
-    </ul>
-    <a href="{{ url_for('register') }}" class="btn">Começar Free</a>
-  </div>
+<hr class="section-divider">
 
-  <div class="plan plan-popular">
-    <h4>Plano Premium</h4>
-    <ul>
-      <li><span class="available">✔</span> Mensagens Ilimitadas</li>
-      <li><span class="available">✔</span> Fotos nas Mensagens</li>
-      <li><span class="available">✔</span> Contador de Tempo</li>
-      <li><span class="available">✔</span> Descontos no Marketplace</li>
-    </ul>
-    <a href="{{ url_for('register') }}" class="btn">Assinar Premium</a>
-  </div>
-</section>
+<div class="section" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1529333166437-7750a6dd5a70');">
+    <h2>Linha do Tempo do Amor</h2>
+    <p>Celebre cada instante do seu relacionamento com a Linha do Tempo do Amor exclusiva para casais premium. Com um cronômetro personalizado diretamente no perfil do casal, você poderá acompanhar com precisão cada dia, mês e ano juntos, desde o primeiro encontro até os momentos mais especiais. É uma maneira linda de registrar e valorizar a evolução do seu amor, criando uma história visual e emocionante que dura para sempre.</p>
+</div>
 
-<!-- Seção de Parceiros Comerciais -->
-<section class="py-5 bg-light border-top">
-  <div class="container text-center">
-    <h2 class="fw-semibold mb-4" style="color: #d63384;">Nossos Parceiros</h2>
-    <p class="mb-5 text-muted">Empresas que confiam e apoiam o LoveWithU</p>
-    <div class="row justify-content-center align-items-center g-4">
-      <div class="col-4 col-sm-3 col-md-2">
-        <img src="{{ url_for('static', filename='images/logo1.png') }}" class="img-fluid grayscale-hover" alt="Parceiro 1">
-      </div>
-      <div class="col-4 col-sm-3 col-md-2">
-        <img src="{{ url_for('static', filename='images/logo2.png') }}" class="img-fluid grayscale-hover" alt="Parceiro 2">
-      </div>
-      <div class="col-4 col-sm-3 col-md-2">
-        <img src="{{ url_for('static', filename='images/logo3.png') }}" class="img-fluid grayscale-hover" alt="Parceiro 3">
-      </div>
-      <div class="col-4 col-sm-3 col-md-2">
-        <img src="{{ url_for('static', filename='images/logo4.png') }}" class="img-fluid grayscale-hover" alt="Parceiro 4">
-      </div>
+<hr class="section-divider">
+
+<div class="section" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://plus.unsplash.com/premium_photo-1661667020173-029b20c675f9?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE0fHx8ZW58MHx8fHx8');">
+    <h2>Memórias em Imagens</h2>
+    <p>Porque alguns momentos merecem mais do que palavras, o LoveWithU permite que você guarde suas fotos mais preciosas diretamente nas conversas. Reviva sorrisos, viagens e momentos inesquecíveis, transformando suas mensagens em álbuns de memórias compartilhadas. É a forma perfeita de registrar a sua história a cada clique, garantindo que as lembranças mais queridas estejam sempre ao alcance das suas mãos.</p>
+</div>
+
+<hr class="section-divider">
+
+<div class="section" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://watermark.lovepik.com/photo/20211210/large/lovepik-couple-dating-outdoor-happy-chat-picture_501801654.jpg');">
+    <h2>Descontos Exclusivos</h2>
+    <p>Surpreender quem você ama nunca foi tão fácil e acessível! Usuários premium do LoveWithU têm acesso a um mundo de descontos exclusivos no nosso marketplace parceiro. Encontre presentes únicos, experiências românticas e mimos especiais para celebrar o seu amor em todas as ocasiões, com ofertas pensadas para casais que buscam momentos inesquecíveis e gestos de carinho que cabem no bolso.</p>
+
+    <div class="partners-logos">
+        <img src="https://via.placeholder.com/100x50?text=Logo+1" alt="Parceiro 1">
+        <img src="https://via.placeholder.com/100x50?text=Logo+2" alt="Parceiro 2">
+        <img src="https://via.placeholder.com/100x50?text=Logo+3" alt="Parceiro 3">
+        <img src="https://via.placeholder.com/100x50?text=Logo+4" alt="Parceiro 4">
     </div>
-  </div>
-</section>
+</div>
+
+<hr class="section-divider">
+
+<div class="plans-section">
+    <div class="plan-box">
+        <h2>Planos para todo tipo de amor</h2>
+        <div class="plan-cards-container">
+            <div class="plan-card bronze-plan">
+                <h3>Bronze</h3>
+                <p class="subtitle"> Grátis porque o amor verdadeiro não tem preço (mas a gente tem planos melhores!). </p>
+                <p class="price">Grátis</p>
+                <ul>
+                    <li><span class="check-icon">✔️</span> Criação de conta e perfil pessoal.</li>
+                    <li><span class="check-icon">✔️</span> Envio de 1 mensagem especial e de alto impacto para a pessoa amada.</li>
+                    <li><span class="check-icon">✔️</span> Acesso completo ao perfil do seu par, incluindo gostos e preferências.</li>
+                </ul>
+            </div>
+
+            <div class="plan-card silver-plan">
+                <h3>Prata</h3>
+                <p class="subtitle"> Desbloqueie mais recursos e mostre para o seu amor que você realmente se importa (e que pode pagar por isso) </p>
+                <p class="price">R$ 19,99/mês</p>
+                <ul>
+                    <li><span class="check-icon">✔️</span> Todo o conteúdo do Bronze </li>
+                    <li><span class="check-icon">✔️</span> Cronômetro de tempo juntos </li>
+                    <li><span class="check-icon">✔️</span> Armazenamento de fotos nas mensagens </li>
+                    <li><span class="check-icon">✔️</span> Acesso a descontos exclusivos no nosso marketplace </li>
+                    <li><span class="check-icon">✔️</span> Recursos exclusivos em desenvolvimento </li>
+                </ul>
+            </div>
+
+            <div class="plan-card gold-plan">
+                <h3>Ouro</h3>
+                <p class="subtitle"> Para casais que não abrem mão do melhor. Porque o amor é ouro, e o plano também! </p>
+                <p class="price">R$ 39,99/mês</p>
+                <ul>
+                    <li><span class="check-icon">✔️</span> Todo o conteúdo do Prata </li>
+                    <li><span class="check-icon">✔️</span> Funcionalidades adicionais exclusivas </li>
+                    <li><span class="check-icon">✔️</span> Suporte prioritário 24/7</li>
+                    <li><span class="check-icon">✔️</span> Acesso antecipado a novos recursos </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
