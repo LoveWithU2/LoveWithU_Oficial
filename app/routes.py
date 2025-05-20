@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, url_for, flash, request, abort
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, CriarMemoriaForm
@@ -7,11 +7,16 @@ import os
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 
-
 @app.route('/')
 @login_required
 def index():
+    # Página principal após login - tipo dashboard ou área restrita
     return render_template('index.html', title='Página Inicial')
+
+@app.route('/home')
+def home():
+    # Página pública acessível por qualquer usuário, logado ou não
+    return render_template('home.html', title='Home')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -21,10 +26,10 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Email ou senha inválidos.')
+            flash('Email ou senha inválidos.', 'danger')
             return redirect(url_for('login'))
         login_user(user)
-        return redirect(url_for('index'))
+        return redirect(url_for('index'))  # Redireciona para index após login
     return render_template('login.html', title='Entrar', form=form)
 
 @app.route('/logout')
@@ -46,7 +51,7 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('Cadastro realizado com sucesso! Agora você pode fazer login.')
+        flash('Cadastro realizado com sucesso! Agora você pode fazer login.', 'success')
         return redirect(url_for('login'))
     return render_template('register.html', title='Cadastrar', form=form)
 
@@ -57,10 +62,9 @@ def criar_memoria():
     if form.validate_on_submit():
         filename = None
         if form.imagem.data:
-            # Garante que o diretório existe
             upload_dir = os.path.join(app.root_path, 'static', 'uploads')
             os.makedirs(upload_dir, exist_ok=True)
-            
+
             filename = secure_filename(form.imagem.data.filename)
             caminho = os.path.join(upload_dir, filename)
             form.imagem.data.save(caminho)
@@ -92,21 +96,14 @@ def uploaded_file(filename):
 @login_required
 def deletar_memoria(id):
     memoria = Memoria.query.get_or_404(id)
-    
-    # Verifica se o usuário é o dono da memória
     if memoria.user_id != current_user.id:
         abort(403)
-    
-    # Remove a imagem associada se existir
     if memoria.imagem:
         try:
             os.remove(os.path.join(app.root_path, 'static', 'uploads', memoria.imagem))
         except FileNotFoundError:
             pass
-    
     db.session.delete(memoria)
     db.session.commit()
     flash('Memória deletada com sucesso!', 'success')
     return redirect(url_for('explorar_memorias'))
-
-

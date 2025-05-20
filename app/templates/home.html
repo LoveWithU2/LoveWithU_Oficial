@@ -1,59 +1,272 @@
 {% extends 'base.html' %}
 
 {% block styles %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <style>
   body {
-    background: linear-gradient(270deg, #fce4ec, #f8bbd0);
-    background-size: 400% 400%;
-    animation: gradientMove 15s ease infinite;
+    background: #fafafa;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica Neue, Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
   }
-  @keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  .home-container {
-    max-width: 900px;
-    margin: 5rem auto;
-    background: #fff;
-    border-radius: 1.5rem;
-    padding: 3rem;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  .hero {
+    padding: 6rem 1rem;
     text-align: center;
+    background: #fff;
   }
-  .home-container h1 {
-    color: #d63384;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
+  .hero h1 {
+    font-size: 2.75rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
   }
-  .home-container p {
-    font-size: 1.2rem;
-    color: #555;
+  .hero p {
+    font-size: 1.25rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+  }
+  .hero .subtext {
+    font-size: 1rem;
+    color: #888;
+    max-width: 500px;
+    margin: 0 auto 2rem;
   }
   .btn-primary-home {
-    background-color: #ec407a;
-    border: none;
-    padding: 1rem 3rem;
-    font-weight: 600;
-    border-radius: 1rem;
-    margin-top: 2rem;
+    background-color: #d63384;
     color: #fff;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
     text-decoration: none;
     display: inline-block;
   }
   .btn-primary-home:hover {
-    background-color: #d81b60;
+    background-color: #b32a6c;
+    transform: scale(1.05);
+  }
+  .spotlight {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    padding: 4rem 1rem;
+    gap: 2rem;
+  }
+  .spotlight-text {
+    flex: 1 1 300px;
+    max-width: 400px;
+    text-align: left;
+  }
+  .spotlight-text h2 {
+    font-size: 2rem;
+    color: #d63384;
+    margin-bottom: 1rem;
+  }
+  .spotlight-text p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
+  }
+  .spotlight-image {
+    flex: 1 1 300px;
+    max-width: 400px;
+  }
+  .spotlight-image img {
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+  .features {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 4rem 1rem;
+    background: #fff;
+  }
+  .features h2 {
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #d63384;
+  }
+  .feature {
+    flex: 1 1 200px;
+    max-width: 240px;
+    text-align: center;
+    margin: 1rem;
+  }
+  .feature i {
+    font-size: 2rem;
+    color: #d63384;
+    margin-bottom: 0.75rem;
+  }
+  .feature h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .feature p {
+    font-size: 0.95rem;
+    color: #555;
+  }
+  .plans {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 4rem 1rem;
+    background: #fafafa;
+  }
+  .plan {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 1rem;
+    width: 260px;
+    padding: 2rem 1rem;
+    text-align: center;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .plan-popular {
+    border-color: #d63384;
+    box-shadow: 0 4px 20px rgba(214,51,132,0.2);
+    transform: scale(1.05);
+  }
+  .plan h4 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #d63384;
+    font-weight: 600;
+  }
+  .plan ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    text-align: left;
+  }
+  .plan li {
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+    color: #444;
+    display: flex;
+    align-items: center;
+  }
+  .plan li .available {
+    color: #d63384;
+    margin-right: 0.5rem;
+  }
+  .plan li .unavailable {
+    color: #bbb;
+    margin-right: 0.5rem;
+  }
+  .plan .btn {
+    margin-top: 1rem;
+    background-color: transparent;
+    color: #d63384;
+    border: 2px solid #d63384;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .plan .btn:hover {
+    background-color: #d63384;
+    color: #fff;
   }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="home-container">
-  <h1>Bem-vindo ao LoveWithU ❤️</h1>
-  <p>Seu lugar para encontrar conexões reais com quem combina com você.</p>
-  <a href="{{ url_for('register') }}" class="btn-primary-home">Criar uma Conta</a>
-</div>
+<section class="hero">
+  <h1>Conecte-se. Apaixone-se. Cresça junto.</h1>
+  <p>No LoveWithU, ajudamos você a encontrar conexões reais e viver momentos especiais com quem realmente importa.</p>
+  <p class="subtext">Descubra novas possibilidades, celebre cada momento e construa uma história única a dois.</p>
+  <a href="{{ url_for('register') }}" class="btn-primary-home">Começar Gratuitamente</a>
+</section>
+
+<section class="spotlight">
+  <div class="spotlight-text">
+    <h2>Encontre o Par Perfeito</h2>
+    <p>Use nosso algoritmo inteligente para combinar você com pessoas que compartilham seus interesses e valores. Tenha conversas significativas e construa relacionamentos duradouros.</p>
+  </div>
+  <div class="spotlight-image">
+    <img src="{{ url_for('static', filename='images/couple-chat.jpg') }}" alt="Casal conversando">
+  </div>
+</section>
+
+<section class="features">
+  <h2>Descubra o que oferecemos</h2>
+  <div class="feature">
+    <i class="bi bi-chat-dots"></i>
+    <h3>Mensagem Única</h3>
+    <p>Envie uma mensagem especial gratuitamente para despertar conexões.</p>
+  </div>
+  <div class="feature">
+    <i class="bi bi-image"></i>
+    <h3>Fotos nas Mensagens</h3>
+    <p>Armazene imagens e crie lembranças para sempre (Premium).</p>
+  </div>
+  <div class="feature">
+    <i class="bi bi-clock"></i>
+    <h3>Contador de Tempo</h3>
+    <p>Acompanhe a duração do seu relacionamento com um contador personalizado (Premium).</p>
+  </div>
+  <div class="feature">
+    <i class="bi bi-percent"></i>
+    <h3>Descontos Exclusivos</h3>
+    <p>Aproveite ofertas especiais no nosso marketplace para casais (Premium).</p>
+  </div>
+</section>
+
+<section class="plans">
+  <div class="plan">
+    <h4>Plano Free</h4>
+    <ul>
+      <li><span class="available">✔</span> Mensagem Única</li>
+      <li><span class="unavailable">✖</span> Fotos nas Mensagens</li>
+      <li><span class="unavailable">✖</span> Contador de Tempo</li>
+      <li><span class="unavailable">✖</span> Descontos no Marketplace</li>
+    </ul>
+    <a href="{{ url_for('register') }}" class="btn">Começar Free</a>
+  </div>
+
+  <div class="plan plan-popular">
+    <h4>Plano Premium</h4>
+    <ul>
+      <li><span class="available">✔</span> Mensagens Ilimitadas</li>
+      <li><span class="available">✔</span> Fotos nas Mensagens</li>
+      <li><span class="available">✔</span> Contador de Tempo</li>
+      <li><span class="available">✔</span> Descontos no Marketplace</li>
+    </ul>
+    <a href="{{ url_for('register') }}" class="btn">Assinar Premium</a>
+  </div>
+</section>
+
+<!-- Seção de Parceiros Comerciais -->
+<section class="py-5 bg-light border-top">
+  <div class="container text-center">
+    <h2 class="fw-semibold mb-4" style="color: #d63384;">Nossos Parceiros</h2>
+    <p class="mb-5 text-muted">Empresas que confiam e apoiam o LoveWithU</p>
+    <div class="row justify-content-center align-items-center g-4">
+      <div class="col-4 col-sm-3 col-md-2">
+        <img src="{{ url_for('static', filename='images/logo1.png') }}" class="img-fluid grayscale-hover" alt="Parceiro 1">
+      </div>
+      <div class="col-4 col-sm-3 col-md-2">
+        <img src="{{ url_for('static', filename='images/logo2.png') }}" class="img-fluid grayscale-hover" alt="Parceiro 2">
+      </div>
+      <div class="col-4 col-sm-3 col-md-2">
+        <img src="{{ url_for('static', filename='images/logo3.png') }}" class="img-fluid grayscale-hover" alt="Parceiro 3">
+      </div>
+      <div class="col-4 col-sm-3 col-md-2">
+        <img src="{{ url_for('static', filename='images/logo4.png') }}" class="img-fluid grayscale-hover" alt="Parceiro 4">
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}
