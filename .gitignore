@@ -1,0 +1,4 @@
+venv/
+migrations/
+LoveWithU.egg-info/
+__pycache__/

@@ -28,3 +28,8 @@ class CriarMemoriaForm(FlaskForm):
     ])
     descricao = TextAreaField('Descrição', validators=[DataRequired()])
     imagem = FileField('Imagem (opcional)', validators=[FileAllowed(['jpg', 'png', 'jpeg'], 'Imagens apenas!')])
+
+class EditarPerfilForm(FlaskForm):
+    username = StringField('Nome de usuário', validators=[DataRequired()])
+    about_me = TextAreaField('Sobre mim', validators=[Length(min=0, max=140)])
+    submit = SubmitField('Salvar')
