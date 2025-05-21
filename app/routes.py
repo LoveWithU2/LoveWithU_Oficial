@@ -107,3 +107,7 @@ def deletar_memoria(id):
     db.session.commit()
     flash('Memória deletada com sucesso!', 'success')
     return redirect(url_for('explorar_memorias'))
+
+@app.route('/marketplace')
+def marketplace():
+    return render_template('marketplace.html')
