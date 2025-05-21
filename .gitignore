@@ -2,3 +2,4 @@ venv/
 migrations/
 LoveWithU.egg-info/
 __pycache__/
+app.db
