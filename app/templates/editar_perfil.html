@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+    <style>
+        body {
+            background: linear-gradient(to right, #ffd6e0, #fcefee);
+        }
+        .perfil-card {
+            max-width: 600px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .perfil-card h2 {
+            color: #d63384;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        .perfil-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ec407a;
+            margin-bottom: 1.5rem;
+        }
+        .form-label {
+            color: #d63384;
+            font-weight: 500;
+            text-align: left;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        .form-control {
+            border: 2px solid #f8bbd0;
+            border-radius: 0.75rem;
+            padding: 0.75rem;
+            margin-bottom: 1.25rem;
+            width: 100%;
+            transition: border-color .3s, box-shadow .3s;
+        }
+        .form-control:focus {
+            border-color: #ec407a;
+            box-shadow: 0 0 5px rgba(240,98,138,0.5);
+        }
+        .btn-success {
+            background-color: #ec407a;
+            border: none;
+            padding: 0.75rem;
+            font-weight: 600;
+            border-radius: 0.75rem;
+            width: 100%;
+            color: #fff;
+            margin-top: 1rem;
+        }
+        .btn-success:hover {
+            background-color: #d81b60;
+        }
+        .file-input {
+            margin-bottom: 1.25rem;
+            width: 100%;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="perfil-card">
+    <h2>Meu Perfil</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <img src="{{ url_for('static', filename='img/perfil_padrao.png') if not user.profile_img else url_for('static', filename='uploads/' + user.profile_img) }}" alt="Imagem de Perfil" class="perfil-img" id="imgPreview">
+        <div class="mb-3">
+            <label for="profile_img" class="form-label">Alterar imagem de perfil</label>
+            <input type="file" id="profile_img" name="profile_img" accept="image/*" class="file-input form-control" onchange="previewImage(event)">
+        </div>
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome do usuário*</label>
+            <input type="text" id="nome" name="nome" class="form-control" value="{{ user.name }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="cidade_estado" class="form-label">Cidade/Estado</label>
+            <input type="text" id="cidade_estado" name="cidade_estado" class="form-control" value="{{ user.cidade_estado }}">
+        </div>
+        <div class="mb-3">
+            <label for="tempo_juntos" class="form-label">Tempo juntos</label>
+            <input type="text" id="tempo_juntos" name="tempo_juntos" class="form-control" value="{{ user.tempo_juntos }}" placeholder="Ex: 2 anos e 3 meses">
+        </div>
+        <div class="mb-3">
+            <label for="aniversario" class="form-label">Aniversário de namoro</label>
+            <input type="date" id="aniversario" name="aniversario" class="form-control" value="{{ user.aniversario.strftime('%Y-%m-%d') if user.aniversario else '' }}">
+        </div>
+        <button type="submit" class="btn btn-success">Salvar Alterações</button>
+    </form>
+</div>
+<script>
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function(){
+            document.getElementById('imgPreview').src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+{% endblock %}

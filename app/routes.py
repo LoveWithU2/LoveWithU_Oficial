@@ -1,11 +1,12 @@
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, CriarMemoriaForm
+from app.forms import LoginForm, RegistrationForm, CriarMemoriaForm, EditarPerfilForm
 from app.models import User, Memoria
 import os
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
+from datetime import datetime, timezone
 
 
 @app.route('/')
@@ -109,4 +110,45 @@ def deletar_memoria(id):
     flash('Memória deletada com sucesso!', 'success')
     return redirect(url_for('explorar_memorias'))
 
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.now(timezone.utc)
+        db.session.commit()
 
+@app.route('/perfil/<username>')
+@login_required
+def user(username):
+    user = db.first_or_404(db.select(User).where(User.username == username))
+    posts = [
+        {'author': user, 'body': 'Exemplo de post 1'},
+        {'author': user, 'body': 'Exemplo de post 2'},
+    ]
+    return render_template('perfil.html', user=user, posts=posts)
+
+@app.route('/editar_perfil', methods=['GET', 'POST'])
+@login_required
+def editar_perfil():
+    if request.method == 'POST':
+        # Atualiza dados
+        current_user.name = request.form['name']
+        current_user.cidade_estado = request.form['cidade_estado']
+        current_user.tempo_juntos = request.form['tempo_juntos']
+        current_user.aniversario = request.form['aniversario']
+
+        # Lida com imagem (se enviada)
+        if 'profile_img' in request.files:
+            file = request.files['profile_img']
+            if file.filename:
+                filename = secure_filename(file.filename)
+                path = os.path.join(app.root_path, 'static', 'uploads')
+                os.makedirs(path, exist_ok=True)
+                filepath = os.path.join(path, filename)
+                file.save(filepath)
+                current_user.profile_img = filename
+
+        db.session.commit()
+        flash('Alterações salvas com sucesso!')
+        return redirect(url_for('user', username=current_user.username))
+
+    return render_template('editar_perfil.html', user=current_user)

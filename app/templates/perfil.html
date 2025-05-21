@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+<style>
+    body {
+        background: linear-gradient(to right, #ffd6e0, #fcefee);
+    }
+    .perfil-card {
+        max-width: 600px;
+        margin: 4rem auto;
+        padding: 2rem;
+        background: #fff;
+        border-radius: 1rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        text-align: center;
+        position: relative;
+    }
+    .perfil-img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #ec407a;
+        margin-bottom: 1rem;
+    }
+    .perfil-card h2 {
+        color: #d63384;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+    .perfil-info p {
+        font-size: 1rem;
+        color: #333;
+        margin: 0.5rem 0;
+    }
+    .edit-icon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: #d63384;
+        font-size: 1.25rem;
+        text-decoration: none;
+    }
+    .edit-icon:hover {
+        color: #b4005a;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="perfil-card">
+    {% if user == current_user %}
+    <a href="{{ url_for('editar_perfil') }}" class="edit-icon" title="Editar perfil">
+        <i class="bi bi-pencil-square"></i>
+    </a>
+    {% endif %}
+
+    <img src="{{ url_for('static', filename='uploads/' + user.profile_img) if user.profile_img else url_for('static', filename='img/perfil_padrao.png') }}" alt="Imagem de Perfil" class="perfil-img">
+    <h2>{{ user.name }}</h2>
+    <div class="perfil-info">
+        {% if user.cidade_estado %}<p><strong>Cidade/Estado:</strong> {{ user.cidade_estado }}</p>{% endif %}
+        {% if user.tempo_juntos %}<p><strong>Tempo juntos:</strong> {{ user.tempo_juntos }}</p>{% endif %}
+        {% if user.aniversario %}<p><strong>Aniversário:</strong> {{ user.aniversario.strftime('%d/%m/%Y') }}</p>{% endif %}
+        {% if user.about_me %}<p><strong>Sobre:</strong> {{ user.about_me }}</p>{% endif %}
+        {% if user.last_seen %}<p><strong>Último acesso:</strong> {{ user.last_seen }}</p>{% endif %}
+    </div>
+</div>
+{% endblock %}

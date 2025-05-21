@@ -13,7 +13,13 @@ class User(UserMixin, db.Model):
     email: so.Mapped[str] = so.mapped_column(sa.String(120), unique=True, index=True)
     password_hash: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))
     posts: so.Mapped[list['Post']] = so.relationship(back_populates='author')
-
+    profile_img: so.Mapped[Optional[str]] = so.mapped_column(sa.String(128))
+    cidade_estado: so.Mapped[Optional[str]] = so.mapped_column(sa.String(100))
+    tempo_juntos: so.Mapped[Optional[str]] = so.mapped_column(sa.String(100))
+    aniversario: so.Mapped[Optional[datetime]] = so.mapped_column(sa.Date())
+    about_me: so.Mapped[Optional[str]] = so.mapped_column(sa.String(140))
+    last_seen: so.Mapped[Optional[datetime]] = so.mapped_column(default=lambda: datetime.now(timezone.utc))
+    
     def __repr__(self):
         return f'<User {self.username}>'
 
