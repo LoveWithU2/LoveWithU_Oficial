@@ -1,5 +1,6 @@
 venv/
 migrations/
+migrations/__pycache__/env.cpython-313.pyc
 LoveWithU.egg-info/
 __pycache__/
 app.db
