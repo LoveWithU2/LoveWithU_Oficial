@@ -8,5 +8,22 @@ py -m pip install --upgrade pip
 
 New-Item -ItemType Directory -Path "static\uploads" -Force
 
-pip install -e .
+pip install flask
+pip install ipython
+pip install flask-wtf
+pip install flask-sqlalchemy
+pip install flask-migrate
+pip install flask-login
+pip install email_validator
+pip install werkzeug
 pip install invoke
+
+flask db init
+flask db migrate -m "users table"
+flask db upgrade
+
+flask db downgrade base
+
+
+set FLASK_APP=bloguvv.py
+flask run
