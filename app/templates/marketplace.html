@@ -1,0 +1,350 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* Custom CSS variables for shadows */
+    :root {
+        --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f0f2f5;
+        color: #333;
+    }
+
+    .header-section {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 0;
+        position: relative;
+        color: white;
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background-color: white;
+        z-index: 1;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+    }
+
+    .header-background {
+        background: url('https://images.unsplash.com/photo-1533991310021-1c9df1c94b98') center/cover no-repeat;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        filter: brightness(0.5);
+        z-index: 0;
+    }
+
+    .header-text {
+        position: relative;
+        z-index: 1;
+        padding: 1rem;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .header-text h1 {
+        font-size: 3.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    .header-text p {
+        font-size: 1.4rem;
+        margin-top: 0.5rem;
+    }
+
+    .blur-divider {
+        width: 100vw;
+        height: 100px;
+        position: relative;
+        margin-top: -50px;
+        margin-left: calc(-50vw + 50%);
+        overflow: hidden;
+        z-index: 2;
+        background: #f0f2f5;
+    }
+
+    .header-to-marca1 {
+        background: linear-gradient(to bottom,
+            white 0%,
+            #bda700 100% /* Cor final da transição para Marca 1 */
+        );
+    }
+
+    .marca1-to-marca2 {
+        background: linear-gradient(to bottom,
+            #bda700 0%, /* Inicia com a cor da Marca 1 */
+            #316d37 100%
+        );
+    }
+
+    .marca2-to-marca3 {
+        background: linear-gradient(to bottom,
+            #316d37 0%,
+            #7a7a7a 100% /* Inicia com a cor da Marca 2 */
+        );
+    }
+
+    .marca3-to-marca4 {
+        background: linear-gradient(to bottom,
+            #7a7a7a 0%, /* Inicia com a cor da Marca 3 */
+            #7a4a02 100%
+        );
+    }
+
+    .brand-section {
+        padding: 4rem 2rem;
+        margin-left: calc(-50vw + 50%);
+        width: 100vw;
+        box-sizing: border-box;
+        position: relative;
+        z-index: 1;
+        margin-top: -50px;
+        padding-top: calc(4rem + 50px);
+    }
+
+    .brand-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .brand-header img {
+        max-width: 300px; /* <--- AJUSTE AQUI PARA AUMENTAR/DIMINUIR O TAMANHO DA LOGO */
+        height: auto;
+        /* REMOVIDAS AS PROPRIEDADES DE BORDA E SOMBRA PADRÃO DO CSS */
+        /* border-radius: 0.75rem; */
+        /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); */
+        transition: transform 0.3s ease;
+    }
+
+    .brand-header img:hover {
+        transform: translateY(-5px);
+    }
+
+    .product-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .product-card {
+        background-color: white;
+        border-radius: 1.25rem;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        width: calc((100% / 3) - 1.5rem);
+        min-width: 250px;
+        max-width: 300px;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+        .product-card {
+            width: calc((100% / 2) - 1.5rem);
+            max-width: 350px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .product-card {
+            width: 90%;
+            max-width: 400px;
+        }
+    }
+
+    .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .product-card:hover .product-price {
+        border: 2px dashed #ff4500;
+        padding: 0.3rem;
+        border-radius: 0.5rem;
+        background-color: rgba(255, 69, 0, 0.1);
+    }
+
+    .product-img {
+        height: 220px;
+        object-fit: cover;
+        width: 100%;
+        border-bottom: 1px solid #eee;
+    }
+
+    .product-content {
+        padding: 1.25rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-align: center;
+    }
+
+    .product-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        color: black;
+    }
+
+    .product-price {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #e44d26;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+    }
+
+    /* Brand specific styles */
+    .marca-1 {
+        background-color: #bda700; /* Cor atualizada para a Marca 1 (Amarelo/Dourado) */
+        color: white;
+    }
+    .marca-2 {
+        background-color: #316d37;
+        color: white;
+    }
+    .marca-3 {
+        background-color: #3f3f3f;
+        color: white;
+    }
+    .marca-4 {
+        background-color: #7a4a02;
+        color: white;
+    }
+    .brand-section .product-title {
+        color: black; 
+    }
+</style>
+
+{% set products_marca1 = [
+    {'img_url': 'https://www.garoto.com.br/sites/default/files/2024-11/caixa-garoto-serenata-de-amor2.jpg', 'name': 'Caixa garoto serenata de amor', 'price': '89.99'},
+    {'img_url': 'https://www.garoto.com.br/sites/default/files/2024-11/caixa-garoto-sortidos-250g.jpg', 'name': 'Caixa Garoto Sortidos 250g', 'price': '69,90'},
+    {'img_url': 'https://www.garoto.com.br/sites/default/files/2024-11/Chocolate-GAROTAO-Negresco-150g.jpg', 'name': 'Chocolate GAROTAO Negresco 150g', 'price': '15,90'},
+    {'img_url': 'https://www.garoto.com.br/sites/default/files/2021-04/baton-ao-leite-fechado.jpg', 'name': 'baton ao leite 16g', 'price': '1.90'},
+    {'img_url': 'https://www.garoto.com.br/sites/default/files/2021-09/pastilhas-extraforte.jpg', 'name': 'pastilha GAROTO extra forte 17g', 'price': '2,90'},
+    {'img_url': 'https://www.garoto.com.br/sites/default/files/2024-11/Choco-Trio-GAROTO-Prestigio-90g_2.jpg', 'name': 'Choco Trio GAROTO Prestigio 90g', 'price': '12.90'}
+] %}
+
+{% set products_marca2 = [
+    {'img_url': 'https://static.giulianaflores.com.br/images/product/rs-16896-46663-0.jpg?ims=260x260', 'name': 'Bandeja Café Raio de Sol ', 'price': '249,99'},
+    {'img_url': 'https://static.giulianaflores.com.br/images/product/rs-16937-47490-0.jpg?ims=405x405', 'name': 'Buquê de Rosas Compacto 12 Flores', 'price': '200,00'},
+    {'img_url': 'https://static.giulianaflores.com.br/images/product/rs-16937-47492-0.jpg?ims=405x405', 'name': 'Buquê de Girassol 2 Flores', 'price': '79,99'},
+    {'img_url': 'https://static.giulianaflores.com.br/images/product/rs-14831-42740-0.jpg?ims=260x260', 'name': 'Box Love Abraço de Carinho', 'price': '120,50'},
+    {'img_url': 'https://static.giulianaflores.com.br/images/product/rs-5362-46473-0.jpg?ims=405x405', 'name': 'Orquídea White', 'price': '190,99'},
+    {'img_url': 'https://static.giulianaflores.com.br/images/product/rs-5362-47839-0.jpg?ims=260x260', 'name': 'Urso de Pelúcia com Rosas', 'price': '305,99'}
+] %}
+
+{% set products_marca3 = [
+    {'img_url': 'https://via.placeholder.com/320x220/228B22/FFFFFF?text=Produto+Verde+1', 'name': 'Kit Ferramentas Completo', 'price': '220,00'},
+    {'img_url': 'https://via.placeholder.com/320x220/228B22/FFFFFF?text=Produto+Verde+2', 'name': 'Lanterna LED Ultra', 'price': '65,00'},
+    {'img_url': 'https://via.placeholder.com/320x220/228B22/FFFFFF?text=Produto+Verde+3', 'name': 'Medidor de Tensão', 'price': '75,00'},
+    {'img_url': 'https://via.placeholder.com/320x220/228B22/FFFFFF?text=Produto+Verde+4', 'name': 'Parafusadeira Elétrica', 'price': '180,00'},
+    {'img_url': 'https://via.placeholder.com/320x220/228B22/FFFFFF?text=Produto+Verde+5', 'name': 'Nível a Laser', 'price': '299,99'},
+    {'img_url': 'https://via.placeholder.com/320x220/228B22/FFFFFF?text=Produto+Verde+6', 'name': 'Alicate Universal', 'price': '40,00'}
+] %}
+
+{% set products_marca4 = [
+    {'img_url': 'https://via.placeholder.com/320x220/FF8C00/FFFFFF?text=Produto+Laranja+1', 'name': 'Panela Antiaderente', 'price': '85,00'},
+    {'img_url': 'https://via.placeholder.com/320x220/FF8C00/FFFFFF?text=Produto+Laranja+2', 'name': 'Liquidificador Profissional', 'price': '250,00'},
+    {'img_url': 'https://via.placeholder.com/320x220/FF8C00/FFFFFF?text=Produto+Laranja+3', 'name': 'Jogo de Talheres Inox', 'price': '110,00'},
+    {'img_url': 'https://via.placeholder.com/320x220/FF8C00/FFFFFF?text=Produto+Laranja+4', 'name': 'Fritadeira Air Fryer', 'price': '380,00'},
+    {'img_url': 'https://via.placeholder.com/320x220/FF8C00/FFFFFF?text=Produto+Laranja+5', 'name': 'Batedeira Planetária', 'price': '420,00'},
+    {'img_url': 'https://via.placeholder.com/320x220/FF8C00/FFFFFF?text=Produto+Laranja+6', 'name': 'Máquina de Café Espresso', 'price': '550,00'}
+] %}
+
+<div class="header-section">
+    <div class="header-background"></div>
+    <div class="header-text">
+        <h1>Trem Bão das Compras</h1>
+        <p>Porque até o amor precisa parcelar no Pix</p>
+    </div>
+</div>
+
+<div class="blur-divider header-to-marca1"></div>
+<div class="brand-section marca-1">
+    <div class="brand-header">
+        <img src="https://i.ibb.co/gZLVstZM/image-removebg-preview-20.png" alt="Logo Garoto" border="0">
+    </div>
+    <div class="product-row">
+        {% for product in products_marca1 %}
+        <div class="product-card">
+            <img src="{{ product.img_url }}" class="product-img" alt="{{ product.name }}">
+            <div class="product-content">
+                <h5 class="product-title">{{ product.name }}</h5>
+                <p class="product-price">R$ {{ product.price }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="blur-divider marca1-to-marca2"></div>
+<div class="brand-section marca-2">
+    <div class="brand-header">
+        <img src="https://i.ibb.co/tTb16q5v/image-removebg-preview-21.png" alt="Logo Floricultur" border="0">
+    </div>
+    <div class="product-row">
+        {% for product in products_marca2 %}
+        <div class="product-card">
+            <img src="{{ product.img_url }}" class="product-img" alt="{{ product.name }}">
+            <div class="product-content">
+                <h5 class="product-title">{{ product.name }}</h5>
+                <p class="product-price">R$ {{ product.price }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="blur-divider marca2-to-marca3"></div>
+<div class="brand-section marca-3">
+    <div class="brand-header">
+        <img src="https://i.ibb.co/cKZ3Prs0/image-removebg-preview-22.png" alt="Logo Acium" border="0">
+    </div>
+    <div class="product-row">
+        {% for product in products_marca3 %}
+        <div class="product-card">
+            <img src="{{ product.img_url }}" class="product-img" alt="{{ product.name }}">
+            <div class="product-content">
+                <h5 class="product-title">{{ product.name }}</h5>
+                <p class="product-price">R$ {{ product.price }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="blur-divider marca3-to-marca4"></div>
+<div class="brand-section marca-4">
+    <div class="brand-header">
+        <img src="https://via.placeholder.com/180x100/FF8C00/FFFFFF?text=Marca+4" alt="Logo Marca 4">
+    </div>
+    <div class="product-row">
+        {% for product in products_marca4 %}
+        <div class="product-card">
+            <img src="{{ product.img_url }}" class="product-img" alt="{{ product.name }}">
+            <div class="product-content">
+                <h5 class="product-title">{{ product.name }}</h5>
+                <p class="product-price">R$ {{ product.price }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
