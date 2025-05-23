@@ -98,6 +98,12 @@
               </a>
             </li>
             <li class="nav-item">
+              <a class="nav-btn nav-btn-outline {% if request.endpoint == 'user' %}active{% endif %}"
+                href="{{ url_for('user', username=current_user.username) }}">
+                <i class="bi bi-person-circle me-1"></i> Ver Perfil
+              </a>
+            </li>
+            <li class="nav-item">
               <a class="nav-btn nav-btn-outline {% if request.endpoint == 'logout' %}active{% endif %}"
                 href="{{ url_for('logout') }}">
                 <i class="bi bi-box-arrow-right"></i> Sair

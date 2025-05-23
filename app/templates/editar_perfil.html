@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+<style>
+    body {
+        background: linear-gradient(to right, #ffd6e0, #fcefee);
+    }
+    .perfil-card {
+        max-width: 600px;
+        margin: 4rem auto;
+        padding: 2rem;
+        background: #fff;
+        border-radius: 1rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+    .perfil-card h2 {
+        color: #d63384;
+        font-weight: 700;
+        margin-bottom: 2rem;
+    }
+    .perfil-img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #ec407a;
+        margin-bottom: 1.5rem;
+    }
+    .form-label {
+        color: #d63384;
+        font-weight: 500;
+        text-align: left;
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+    .form-control {
+        border: 2px solid #f8bbd0;
+        border-radius: 0.75rem;
+        padding: 0.75rem;
+        margin-bottom: 1.25rem;
+        width: 100%;
+        transition: border-color .3s, box-shadow .3s;
+    }
+    .form-control:focus {
+        border-color: #ec407a;
+        box-shadow: 0 0 5px rgba(240,98,138,0.5);
+    }
+    .btn-success {
+        background-color: #ec407a;
+        border: none;
+        padding: 0.75rem;
+        font-weight: 600;
+        border-radius: 0.75rem;
+        width: 100%;
+        color: #fff;
+        margin-top: 1rem;
+    }
+    .btn-success:hover {
+        background-color: #d81b60;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="perfil-card">
+    <h2>Editar Perfil</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    <img src="{{ url_for('static', filename='img/perfil_padrao.png') if not user.profile_img else url_for('static', filename='uploads/' + user.profile_img) }}" alt="Imagem de Perfil" class="perfil-img" id="imgPreview">
+
+    <div class="mb-3">
+        {{ form.profile_img.label(class="form-label") }}
+        {{ form.profile_img(class="form-control file-input", onchange="previewImage(event)") }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.nome.label(class="form-label") }}
+        {{ form.nome(class="form-control", placeholder="Seu nome completo") }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.cidade_estado.label(class="form-label") }}
+        {{ form.cidade_estado(class="form-control", placeholder="Cidade/Estado") }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.tempo_juntos.label(class="form-label") }}
+        {{ form.tempo_juntos(class="form-control", placeholder="Ex: 2 anos e 3 meses") }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.aniversario.label(class="form-label") }}
+        {{ form.aniversario(class="form-control") }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.about_me.label(class="form-label") }}
+        {{ form.about_me(class="form-control", rows="3", placeholder="Escreva algo sobre você...") }}
+    </div>
+
+    {{ form.submit(class="btn btn-success") }}
+</form>
+
+</div>
+
+<script>
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function(){
+            document.getElementById('imgPreview').src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+{% endblock %}

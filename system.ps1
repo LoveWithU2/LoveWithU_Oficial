@@ -25,5 +25,6 @@ flask db upgrade
 flask db downgrade base
 
 
-set FLASK_APP=bloguvv.py
+set FLASK_APP=app.py
+set FLASK_DEBUG=1
 flask run
