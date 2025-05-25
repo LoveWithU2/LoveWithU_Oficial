@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import current_user, login_user, logout_user, login_required
-from app import app, db
+from app import app, db, csrf
 from app.forms import LoginForm, RegistrationForm, CriarMemoriaForm, EditarPerfilForm
 from app.models import User, Memoria
 import os
@@ -94,6 +94,7 @@ def explorar_memorias():
 def uploaded_file(filename):
     return send_from_directory(os.path.join(app.root_path, 'static', 'uploads'), filename)
 
+@csrf.exempt
 @app.route('/deletar_memoria/<int:id>', methods=['POST'])
 @login_required
 def deletar_memoria(id):
@@ -109,6 +110,7 @@ def deletar_memoria(id):
     db.session.commit()
     flash('Memória deletada com sucesso!', 'success')
     return redirect(url_for('explorar_memorias'))
+
 
 @app.before_request
 def before_request():

@@ -10,6 +10,8 @@ from flask_wtf.csrf import CSRFProtect
 app = Flask(__name__)
 app.config.from_object(Config)
 app.config['SECRET_KEY'] = 'chave_secreta'
+# Inicializa a proteção CSRF
+csrf = CSRFProtect(app)
 
 # Inicializa extensões
 db = SQLAlchemy(app)
@@ -21,6 +23,3 @@ login.login_view = 'login'
 
 # Importa as rotas e modelos depois de inicializar os objetos
 from app import routes, models
-
-# Inicializa a proteção CSRF
-csrf = CSRFProtect(app)
