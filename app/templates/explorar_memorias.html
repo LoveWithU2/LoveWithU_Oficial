@@ -2,172 +2,289 @@
 
 {% block styles %}
 <style>
-    body {
-        background: linear-gradient(to bottom right, #fff1f5, #ffe4ec);
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        min-height: 100vh;
+    /*
+    * REGRAS PARA O BACKGROUND DO SITE INTEIRO (Com !important para forçar precedência nesta página)
+    */
+    html {
+        background: #f0f2f5 url('https://static.vecteezy.com/ti/vetor-gratis/p1/5368219-classico-minimalista-fundo-forma-abstrato-moderno-universal-modelos-graficos-padrao-de-elementos-abstratos-em-cores-soft-para-poster-e-fundo-vetor.jpg') no-repeat center center fixed !important;
+        background-blend-mode: multiply !important;
+        background-size: cover !important; /* Essencial: adapta a imagem à resolução, cobrindo toda a área */
+        height: 100% !important; /* Garante que o HTML ocupe 100% da altura da viewport */
     }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #343a40;
+        background-color: transparent !important; /* MUITO IMPORTANTE: torna o body transparente */
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .content-wrapper {
+        background-color: transparent !important; /* Garante que o wrapper do conteúdo seja transparente */
+        /* AJUSTE ESTES VALORES: padding-top é para o espaço da sua navbar.
+           Altere '60px' para a altura exata da sua navbar (ex: 56px, 70px). */
+        padding-top: 60px !important; /* <--- AJUSTE AQUI PARA A ALTURA DA SUA NAVBAR */
+        padding-bottom: 60px !important;
+        min-height: calc(100vh - 60px) !important; /* Ajuste este '60px' também */
+    }
+
+    /* ESTILOS PARA O EFEITO 3D NOS CARDS E SOMBRA DINÂMICA */
+    .card {
+        border-radius: 12px;
+        overflow: hidden;
+        /* MODIFICADO: Transição mais rápida */
+        transition: transform 0.1s ease, box-shadow 0.1s ease; /* Animação mais rápida aqui! */
+        border: none;
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); /* Sombra inicial padrão */
+
+        /* ESSENCIAL PARA O EFEITO 3D */
+        transform-style: preserve-3d; /* Permite que os filhos preservem a cena 3D */
+        perspective: 1000px; /* Define a perspectiva para o efeito 3D */
+        transform: rotateX(0deg) rotateY(0deg) scale(1); /* Estado inicial */
+        will-change: transform, box-shadow; /* Otimização para performance, incluindo box-shadow */
+    }
+
+    /* Mantém o efeito de levantar no hover, mas a rotação e a sombra serão controladas pelo JS */
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(233, 30, 99, 0.18);
+    }
+
+    /* O restante dos seus estilos específicos da página */
 
     h2 {
-        color: #c2185b;
-        font-weight: bold;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-    }
-
-    .card {
-        border-radius: 20px;
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border: none;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(216, 27, 96, 0.1);
+        color: #e91e63;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 2.5rem;
+        font-size: 2.2rem;
     }
 
     .card-img-top {
         height: 200px;
         object-fit: cover;
-        border-bottom: 2px solid #f8bbd0;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+
+    .card-body {
+        padding: 1.5rem;
     }
 
     .card-title {
-        font-size: 1.25rem;
+        font-size: 1.3rem;
         color: #d81b60;
         font-weight: 600;
+        margin-bottom: 0.75rem;
     }
 
     .card-text {
         color: #555;
-        margin-bottom: 1rem;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-text strong {
+        color: #e91e63;
     }
 
     .badge {
-        background-color: #f8bbd0 !important;
-        font-weight: 500;
-        border-radius: 10px;
+        background-color: #ffe4ec !important;
+        color: #c2185b !important;
+        font-weight: 600;
+        border-radius: 6px;
         padding: 5px 10px;
-        margin-right: 5px;
+        margin-top: 0.75rem;
+        display: inline-block;
+        font-size: 0.85rem;
     }
 
     .no-memories {
         text-align: center;
-        margin-top: 50px;
-        font-size: 18px;
+        margin-top: 80px;
+        font-size: 1.3rem;
         color: #777;
-    }
-
-    .btn-create {
-        background-color: #d81b60;
-        color: white;
-        border: none;
-        border-radius: 50px;
-        padding: 10px 25px;
-        font-weight: 600;
-        transition: all 0.3s;
-        box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
-    }
-
-    .btn-create:hover {
-        background-color: #c2185b;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(216, 27, 96, 0.4);
-    }
-
-    .btn-delete {
-        background-color: #f8bbd0;
-        color: #d81b60;
-        border: none;
-        border-radius: 50px;
-        padding: 5px 15px;
-        font-weight: 500;
-        transition: all 0.3s;
-        margin-top: 10px;
-    }
-
-    .btn-delete:hover {
-        background-color: #f48fb1;
-        color: white;
+        line-height: 1.6;
     }
 
     .action-buttons {
         display: flex;
         justify-content: space-between;
-        margin-top: 20px;
-        margin-bottom: 30px;
+        align-items: center;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .btn-create {
+        background-color: #e91e63;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 12px 28px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+    }
+
+    .btn-create:hover {
+        background-color: #c2185b;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(233, 30, 99, 0.45);
+    }
+
+    .btn-delete {
+        background-color: #ffeef4;
+        color: #e91e63;
+        border: 1px solid #f8bbd0;
+        border-radius: 20px;
+        padding: 8px 18px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        font-size: 0.88rem;
+    }
+
+    .btn-delete:hover {
+        background-color: #e91e63;
+        color: white;
+        border-color: #e91e63;
+        transform: translateY(-1px);
     }
 
     .card-footer {
         background: transparent;
         border-top: none;
-        padding: 1rem 1.25rem;
+        padding: 1rem 1.5rem 1.25rem;
+        text-align: right;
     }
 
     @media (max-width: 768px) {
+        .content-wrapper {
+            padding-top: 20px !important;
+            min-height: calc(100vh - 40px) !important;
+        }
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+        }
         .card-img-top {
             height: 160px;
         }
-        
         .action-buttons {
             flex-direction: column;
-            gap: 10px;
+            align-items: stretch;
+            gap: 12px;
         }
-        
         .btn-create {
             width: 100%;
+            padding: 10px 20px;
+        }
+        .no-memories {
+            font-size: 1.1rem;
         }
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="action-buttons">
-        <h2 class="text-center mb-0">Explorar Memórias ❤️</h2>
-        <a href="{{ url_for('criar_memoria') }}" class="btn btn-create">
-            <i class="fas fa-plus"></i> Nova Memória
-        </a>
-    </div>
+<div class="content-wrapper">
+    <div class="container">
+        <div class="action-buttons">
+            <h2 class="mb-0">Explorar Memórias ❤️</h2>
+            <a href="{{ url_for('criar_memoria') }}" class="btn btn-create">
+                <i class="fas fa-plus"></i> Nova Memória
+            </a>
+        </div>
 
-    {% if memorias %}
-    <div class="row">
-        {% for memoria in memorias %}
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm h-100">
-                {% if memoria.imagem %}
-                    <img src="{{ url_for('uploaded_file', filename=memoria.imagem) }}"
-                         class="card-img-top"
-                         alt="Imagem da memória">
-                {% else %}
-                    <img src="{{ url_for('static', filename='images/sem_imagem.png') }}"
-                         class="card-img-top"
-                         alt="Sem imagem disponível">
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{ memoria.titulo }}</h5>
-                    <p class="card-text"><strong>Data:</strong> {{ memoria.data.strftime('%d/%m/%Y') }}</p>
-                    <p class="card-text">{{ memoria.descricao }}</p>
-                    <span class="badge text-dark">{{ memoria.categoria }}</span>
-                </div>
-                <div class="card-footer">
-                    <form action="{{ url_for('deletar_memoria', id=memoria.id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar esta memória?');">
-                        <button type="submit" class="btn btn-delete">
-                            <i class="fas fa-trash"></i> Deletar
-                        </button>
-                    </form>
+        {% if memorias %}
+        <div class="row">
+            {% for memoria in memorias %}
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card h-100">
+                    {% if memoria.imagem %}
+                        <img src="{{ url_for('uploaded_file', filename=memoria.imagem) }}"
+                             class="card-img-top"
+                             alt="Imagem da memória">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='images/sem_imagem.png') }}"
+                             class="card-img-top"
+                             alt="Sem imagem disponível">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ memoria.titulo }}</h5>
+                        <p class="card-text"><strong>Data:</strong> {{ memoria.data.strftime('%d/%m/%Y') }}</p>
+                        <p class="card-text">{{ memoria.descricao | truncate(150, True) }}</p>
+                        <span class="badge">{{ memoria.categoria }}</span>
+                    </div>
+                    <div class="card-footer">
+                        <form action="{{ url_for('deletar_memoria', id=memoria.id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar esta memória?');">
+                            <button type="submit" class="btn btn-delete">
+                                <i class="fas fa-trash"></i> Deletar
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        {% else %}
+        <div class="text-center py-5">
+            <p class="no-memories">Nenhuma memória foi registrada ainda. Que tal criar uma nova? 💖</p>
+            <a href="{{ url_for('criar_memoria') }}" class="btn btn-create mt-4">
+                <i class="fas fa-plus"></i> Criar Primeira Memória
+            </a>
+        </div>
+        {% endif %}
     </div>
-    {% else %}
-    <div class="text-center py-5">
-        <p class="no-memories">Nenhuma memória foi registrada ainda. Que tal criar uma nova? 💖</p>
-        <a href="{{ url_for('criar_memoria') }}" class="btn btn-create">
-            <i class="fas fa-plus"></i> Criar Primeira Memória
-        </a>
-    </div>
-    {% endif %}
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('.card').on('mousemove', function(e) {
+        const card = $(this);
+        const pos = card.offset();
+        const width = card.width();
+        const height = card.height();
+
+        // Calcular a posição do mouse relativa ao centro do card
+        const centerX = pos.left + width / 2;
+        const centerY = pos.top + height / 2;
+
+        const mouseX = e.pageX;
+        const mouseY = e.pageY;
+
+        const deltaX = mouseX - centerX;
+        const deltaY = mouseY - centerY;
+
+        const maxRotate = 8; // Graus máximos de rotação do card
+        const rotateY = (deltaX / (width / 2)) * maxRotate; // Rotação no eixo Y (esquerda/direita)
+        const rotateX = (deltaY / (height / 2)) * -maxRotate; // Rotação no eixo X (cima/baixo)
+
+        const shadowOffsetFactor = 20; // Ajuste este valor para controlar o deslocamento máximo da sombra
+        const shadowIntensityX = (deltaX / width) * shadowOffsetFactor;
+        const shadowIntensityY = (deltaY / height) * shadowOffsetFactor;
+
+        // Aplicar a transformação 3D e a sombra dinâmica
+        card.css('transform', `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`);
+        // A sombra agora se move levemente, criando a sensação de peso
+        card.css('box-shadow', `${shadowIntensityX}px ${shadowIntensityY}px 30px rgba(0, 0, 0, 0.15)`);
+    });
+
+    // Resetar a transformação e a sombra quando o mouse sair do card
+    $('.card').on('mouseleave', function() {
+        $(this).css('transform', 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)');
+        // Voltar para a sombra inicial definida no CSS
+        $(this).css('box-shadow', '0 8px 25px rgba(0, 0, 0, 0.08)');
+    });
+});
+</script>
 {% endblock %}

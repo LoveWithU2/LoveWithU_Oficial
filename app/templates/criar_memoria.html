@@ -3,125 +3,170 @@
 {% block styles %}
 <style>
     body {
-        background: linear-gradient(to right, #ffe4ec, #fdf0f5);
+        background: #f8f9fa url('https://static.vecteezy.com/ti/vetor-gratis/p1/6915132-fundo-liquido-de-estilo-minimalista-pintado-a-mao-gratis-vetor.jpg');
+        background-blend-mode: multiply;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #343a40;
+    }
+
+    .main-content-container {
+        width: 100%;
+        max-width: 960px; /* Adjusted: Wider container for the card */
+        padding: 20px;
+        margin: 50px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
 
     .card {
-        background-color: #fff;
-        border-radius: 20px;
+        background-color: rgba(255, 255, 255, 0.95); /* Slightly less transparent */
+        border-radius: 15px;
         border: none;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Slightly more prominent shadow */
+        margin-bottom: 20px;
+        width: 100%; /* Ensure card takes full width of its column */
     }
 
-    h2.text-primary {
-        color: #d81b60 !important;
-        font-weight: bold;
+    /* Scoped styles: Add .card or .main-content-container prefix where appropriate */
+    .card h2.text-primary {
+        color: #e91e63 !important; /* Changed to a lovely pink */
+        font-weight: 700; /* Made title bolder */
+        text-align: center;
+        margin-bottom: 1.5rem; /* More space below title */
     }
 
-    .form-label {
-        font-weight: 600;
-        color: #c2185b;
+    .card .form-label {
+        font-weight: 500;
+        color: #495057;
+        margin-bottom: 0.25rem; /* Closer to the input field */
     }
 
-    .form-control {
-        border-radius: 12px;
-        border: 2px solid #f8bbd0;
-        transition: all 0.3s ease;
-        padding: 10px 15px;
-        font-size: 16px;
-        background-color: #fff0f5;
+    .card .form-control {
+        border-radius: 10px; /* Slightly more rounded */
+        border: 1px solid #ced4da;
+        transition: all 0.3s ease-in-out; /* Smooth transition for focus effect */
+        padding: 10px 15px; /* Slightly more padding */
+        font-size: 1rem;
+        background-color: #ffffff;
     }
 
-    .form-control:focus {
-        border-color: #ec407a;
-        box-shadow: 0 0 8px #f48fb1;
+    .card .form-control:focus {
+        border-color: #f48fb1; /* Lighter pink border on focus */
+        box-shadow: 0 0 0 0.25rem rgba(233, 30, 99, 0.25); /* **Pink glow effect** */
+        outline: none; /* Remove default outline */
     }
 
-    .form-control-file {
-        background-color: #fff0f5;
-        border: 2px dashed #f8bbd0;
-        border-radius: 12px;
+    .card .form-control-file {
+        background-color: #f8f9fa;
+        border: 1px dashed #ced4da;
+        border-radius: 10px; /* Consistent with other inputs */
         padding: 10px;
         width: 100%;
+        transition: all 0.3s ease-in-out; /* Smooth transition for focus effect */
     }
 
-    .btn-success {
-        background-color: #e91e63;
+    .card .form-control-file:focus {
+        border-color: #f48fb1; /* Lighter pink border on focus */
+        box-shadow: 0 0 0 0.25rem rgba(233, 30, 99, 0.25); /* **Pink glow effect** */
+        outline: none;
+    }
+
+    .card .btn-success {
+        background-color: #e91e63; /* Pink button */
         border: none;
-        padding: 12px 35px;
-        border-radius: 30px;
-        font-size: 18px;
-        font-weight: bold;
-        box-shadow: 0 5px 20px rgba(233, 30, 99, 0.3);
-        transition: background-color 0.3s ease;
+        padding: 12px 30px; /* Larger button */
+        border-radius: 25px; /* More rounded button */
+        font-size: 1.1rem; /* Slightly larger text */
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(233, 30, 99, 0.25); /* Pink shadow */
+        transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
     }
 
-    .btn-success:hover {
-        background-color: #c2185b;
+    .card .btn-success:hover {
+        background-color: #c2185b; /* Darker pink on hover */
+        transform: translateY(-2px); /* Slight lift effect */
     }
 
-    ::placeholder {
-        color: #c48b9f;
+    .card ::placeholder {
+        color: #a0a0a0; /* Slightly lighter placeholder for better contrast */
     }
 
     .card-body {
-        background: linear-gradient(to top right, #fff, #ffeef4);
-        border-radius: 20px;
+        background-color: rgba(255, 255, 255, 0.9); /* Slightly less transparent card body */
+        border-radius: 15px;
+        padding: 2.5rem; /* More padding inside card */
     }
 
-    @media (max-width: 768px) {
-        h2 {
-            font-size: 24px;
-        }
+    /* Adjust column width for wider card on larger screens */
+    .col-md-8 {
+        max-width: 750px; /* Slightly wider column for the card on medium-large screens */
+        flex: 0 0 auto; /* Ensure it respects max-width */
+        width: 100%; /* Default to 100% on small screens */
+    }
 
-        .btn-success {
-            font-size: 16px;
+
+    @media (max-width: 768px) {
+        .main-content-container {
+            padding: 15px;
+            margin: 30px auto;
+        }
+        .card h2 {
+            font-size: 1.8rem; /* Adjust title size for small screens */
+        }
+        .card .btn-success {
+            font-size: 1rem;
             padding: 10px 25px;
+        }
+        .card-body {
+            padding: 1.5rem;
+        }
+        .col-md-8 {
+            max-width: 95%; /* Adjust for very small screens */
         }
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="container mt-5 mb-5">
+<div class="main-content-container">
     <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10">
-            <div class="card shadow-lg border-0 rounded">
-                <div class="card-body p-5">
-                    <h2 class="text-center mb-4 text-primary">✨ Criar Nova Memória</h2>
+        <div class="col-md-8"> <div class="card">
+                <div class="card-body">
+                    <h2 class="text-primary">Criar Nova Memória</h2>
 
                     <form method="POST" enctype="multipart/form-data">
                         {{ form.hidden_tag() }}
 
-                        <div class="form-group mb-4">
-                            {{ form.titulo.label(class="form-label font-weight-bold") }}
+                        <div class="form-group mb-3"> {{ form.titulo.label(class="form-label") }}
                             {{ form.titulo(class="form-control", placeholder="Ex: Aniversário de 1 ano") }}
                         </div>
 
-                        <div class="form-group mb-4">
-                            {{ form.data.label(class="form-label font-weight-bold") }}
+                        <div class="form-group mb-3">
+                            {{ form.data.label(class="form-label") }}
                             {{ form.data(class="form-control") }}
                         </div>
 
-                        <div class="form-group mb-4">
-                            {{ form.categoria.label(class="form-label font-weight-bold") }}
+                        <div class="form-group mb-3">
+                            {{ form.categoria.label(class="form-label") }}
                             {{ form.categoria(class="form-control") }}
                         </div>
 
-                        <div class="form-group mb-4">
-                            {{ form.descricao.label(class="form-label font-weight-bold") }}
+                        <div class="form-group mb-4"> {{ form.descricao.label(class="form-label") }}
                             {{ form.descricao(class="form-control", rows=5, placeholder="Conte com carinho essa lembrança especial...") }}
                         </div>
 
                         <div class="form-group mb-4">
-                            {{ form.imagem.label(class="form-label font-weight-bold") }}
+                            {{ form.imagem.label(class="form-label") }}
                             {{ form.imagem(class="form-control-file") }}
                         </div>
 
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-lg btn-success px-5">
-                                Salvar Memória 💌
+                        <div class="text-center mt-4"> <button type="submit" class="btn btn-success">
+                                Salvar Memória 
                             </button>
                         </div>
                     </form>
