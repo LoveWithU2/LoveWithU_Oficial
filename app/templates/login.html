@@ -4,35 +4,41 @@
   <!-- Bootstrap Icons (já incluídos no base.html, mas mantidos aqui só se precisar de versão específica) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <style>
-    /* Fundo suave com corações */
+    /* Fundo com imagem personalizada */
     body {
-      background: linear-gradient(135deg, #ffe6f0, #ffd1e8);
-      background-image:
-        radial-gradient(circle at 10px 10px, rgba(255,105,180,0.4) 2%, transparent 0%),
-        radial-gradient(circle at 40px 40px, rgba(255,105,180,0.4) 2%, transparent 0%);
-      background-size: 50px 50px;
+      background-image: url('https://bibliotecadopregador.com.br/wp-content/uploads/2023/05/casal-feliz-780x470.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
     }
+
     /* Card de login */
     .login-card {
       max-width: 500px;
       width: 90%;
       border-radius: 1.5rem;
       overflow: hidden;
+      background-color: rgba(255, 255, 255, 0.95); /* fundo semi-transparente */
     }
+
     .login-card .card-body {
       padding: 3rem;
     }
+
     .login-card .card-title {
       font-weight: 700;
       color: #d63384;
       font-size: 2rem;
     }
+
     /* Inputs arredondados */
     .form-control {
       border-radius: 1rem;
       padding: 1rem;
     }
-    /* Botão de submit personalizado mas sem mexer na navbar */
+
+    /* Botão de submit personalizado */
     .btn-primary {
       border-radius: 1rem;
       font-weight: 600;
@@ -40,13 +46,16 @@
       background-color: #d63384;
       border-color: #d63384;
     }
+
     .btn-primary:hover {
       background-color: #a61e66;
       border-color: #a61e66;
     }
+
     .link-secondary {
       color: #d63384;
     }
+
     .link-secondary:hover {
       color: #a61e66;
       text-decoration: none;
